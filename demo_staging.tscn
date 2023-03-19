@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://75fnm8t0couq"]
+
+[ext_resource type="PackedScene" uid="uid://bnqnnnet4dw12" path="res://addons/godot-xr-tools/staging/staging.tscn" id="1"]
+[ext_resource type="Script" path="res://demo_staging.gd" id="2"]
+
+[node name="DemoStaging" instance=ExtResource("1")]
+script = ExtResource("2")
+main_scene = "res://levels/level-1/level-1.tscn"
+
+[connection signal="scene_exiting" from="." to="." method="_on_Staging_scene_exiting"]
+[connection signal="scene_loaded" from="." to="." method="_on_Staging_scene_loaded"]
+[connection signal="xr_ended" from="." to="." method="_on_Staging_xr_ended"]
+[connection signal="xr_started" from="." to="." method="_on_Staging_xr_started"]
