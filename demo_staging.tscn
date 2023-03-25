@@ -5,7 +5,7 @@
 
 [node name="DemoStaging" instance=ExtResource("1")]
 script = ExtResource("2")
-main_scene = "res://levels/level-1/level-1.tscn"
+main_scene = "res://levels/level-2/level-2.tscn"
 
 [connection signal="scene_exiting" from="." to="." method="_on_Staging_scene_exiting"]
 [connection signal="scene_loaded" from="." to="." method="_on_Staging_scene_loaded"]
