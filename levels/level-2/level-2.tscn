@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://utga61rlgb3t"]
+[gd_scene load_steps=22 format=3 uid="uid://utga61rlgb3t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
@@ -10,15 +10,78 @@
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_1f6fl"]
 [ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="8_ftouv"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
+[ext_resource type="Shader" path="res://assets/water/water.gdshader" id="11_xrcit"]
+[ext_resource type="Script" path="res://levels/level-2/Water.gd" id="12_cffbp"]
+[ext_resource type="PackedScene" uid="uid://dvvem4g7ivur2" path="res://assets/kayKit-scenes/large_tile_forest.tscn" id="13_x1ddo"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_n4l8h"]
-size = Vector2(10, 10)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6wdv0"]
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gdv4f"]
-data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_leyfy"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_6wdv0")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m8q15"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ch51q"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_m8q15")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1oumy"]
+noise_type = 3
+frequency = 0.001
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fqu0f"]
+seamless = true
+noise = SubResource("FastNoiseLite_1oumy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvb3w"]
+render_priority = 0
+shader = ExtResource("11_xrcit")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
+shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_time = 0.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_2_direction = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.2
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 0.15
+shader_parameter/beers_law = 0.089
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.362
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0.992157, 0.992157, 0.992157, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_leyfy")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_ch51q")
+shader_parameter/wave = SubResource("NoiseTexture2D_fqu0f")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_havxl"]
+material = SubResource("ShaderMaterial_pvb3w")
+size = Vector2(500, 500)
+subdivide_width = 500
+subdivide_depth = 500
 
 [node name="Level-2" instance=ExtResource("1")]
 script = ExtResource("2_taoax")
+
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="LeftHand" parent="XROrigin3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, -0.5)
 
 [node name="FunctionPoseDetector" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("5_xgcrx")]
 visible = false
@@ -29,6 +92,9 @@ strafe = true
 
 [node name="LeftHand" parent="XROrigin3D/LeftHand" index="2" instance=ExtResource("8_u8jpa")]
 hand_material_override = ExtResource("4_lkqix")
+
+[node name="RightHand" parent="XROrigin3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, -0.5)
 
 [node name="FunctionPoseDetector" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("5_xgcrx")]
 
@@ -46,14 +112,14 @@ jump_button_action = "ax_button"
 
 [node name="Node3D" type="Node3D" parent="." index="1"]
 
-[node name="Ground" type="StaticBody3D" parent="Node3D" index="0"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Ground" index="0"]
-mesh = SubResource("PlaneMesh_n4l8h")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Ground" index="1"]
-shape = SubResource("ConcavePolygonShape3D_gdv4f")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" index="1"]
-transform = Transform3D(1, 0, 0, 0, 0.125333, 0.992115, 0, -0.992115, 0.125333, 0, 2.81591, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" index="0"]
+transform = Transform3D(0.871025, 0.0615682, 0.487365, -0.4745, 0.362226, 0.802273, -0.127142, -0.930055, 0.344722, 0, 7.44731, 0)
 shadow_enabled = true
+
+[node name="Water" type="MeshInstance3D" parent="Node3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("PlaneMesh_havxl")
+script = ExtResource("12_cffbp")
+
+[node name="Large Tile Forest" parent="." index="2" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042366, -4.76837e-07, -0.0144974)

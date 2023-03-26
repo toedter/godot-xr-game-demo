@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b107v6at4sll6"]
+
+[ext_resource type="PackedScene" uid="uid://dcweqd0ks6yyi" path="res://assets/kenney_platformer-kit/blockDirtRampHalf.glb" id="1_keltq"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_53ujo"]
+data = PackedVector3Array(-0.5, 0, -0.5, -0.5, 0.5, 0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0.5, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0.5, 0.5, -0.5, 0, -0.5, 0.5, 0, -0.5, 0.5, 0, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5)
+
+[node name="blockDirtRampHalf" instance=ExtResource("1_keltq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("ConcavePolygonShape3D_53ujo")
