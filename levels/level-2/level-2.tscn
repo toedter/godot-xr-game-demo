@@ -1,7 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://utga61rlgb3t"]
+[gd_scene load_steps=34 format=3 uid="uid://utga61rlgb3t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
-[ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
+[ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
 [ext_resource type="Material" uid="uid://dy4ya7w0k18ds" path="res://addons/godot-xr-tools/hands/materials/glove_caucasian_dark_camo.material" id="4_lkqix"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bft3xyxs31ci3" path="res://addons/godot-xr-tools/functions/function_pose_detector.tscn" id="5_xgcrx"]
@@ -10,9 +10,27 @@
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_1f6fl"]
 [ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="8_ftouv"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/overrides/ground_physics_settings.gd" id="11_qur3a"]
 [ext_resource type="Shader" path="res://assets/water/water.gdshader" id="11_xrcit"]
 [ext_resource type="Script" path="res://levels/level-2/Water.gd" id="12_cffbp"]
+[ext_resource type="PackedScene" uid="uid://d2yejwiwab3wv" path="res://addons/godot-xr-tools/examples/fall_damage.tscn" id="12_kaev2"]
 [ext_resource type="PackedScene" uid="uid://dvvem4g7ivur2" path="res://assets/kayKit-scenes/large_tile_forest.tscn" id="13_x1ddo"]
+[ext_resource type="PackedScene" uid="uid://b36y3cweis8mt" path="res://assets/kayKit-scenes/medium_blue_tile.tscn" id="14_ib32c"]
+[ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_v3qca"]
+[ext_resource type="Material" uid="uid://216mgrr62hdr" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="17_bu3g0"]
+[ext_resource type="Texture2D" uid="uid://ccrocge6mm0wm" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="19_npbdg"]
+
+[sub_resource type="Resource" id="Resource_qqcj5"]
+script = ExtResource("11_qur3a")
+flags = 0
+move_drag = 5.0
+move_traction = 30.0
+stop_on_slope = true
+move_max_slope = 45.0
+jump_max_slope = 45.0
+jump_velocity = 5.0
+bounciness = 0.0
+bounce_threshold = 1.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6wdv0"]
 
@@ -74,8 +92,26 @@ size = Vector2(500, 500)
 subdivide_width = 500
 subdivide_depth = 500
 
+[sub_resource type="QuadMesh" id="QuadMesh_aa3d0"]
+size = Vector2(96, 96)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3jai6"]
+size = Vector3(100, 2, 100)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2buop"]
+panorama = ExtResource("19_npbdg")
+
+[sub_resource type="Sky" id="Sky_quwgn"]
+sky_material = SubResource("PanoramaSkyMaterial_2buop")
+
+[sub_resource type="Environment" id="Environment_t0rgm"]
+background_mode = 2
+sky = SubResource("Sky_quwgn")
+
 [node name="Level-2" instance=ExtResource("1")]
-script = ExtResource("2_taoax")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
+script = ExtResource("2_4j61s")
+environment = null
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -109,17 +145,97 @@ jump_button_action = "ax_button"
 [node name="RightHand" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("8_ftouv")]
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("8")]
+physics = SubResource("Resource_qqcj5")
 
-[node name="Node3D" type="Node3D" parent="." index="1"]
+[node name="FallDamage" parent="XROrigin3D/PlayerBody" index="0" instance=ExtResource("12_kaev2")]
+ground_only = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" index="0"]
-transform = Transform3D(0.871025, 0.0615682, 0.487365, -0.4745, 0.362226, 0.802273, -0.127142, -0.930055, 0.344722, 0, 7.44731, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(0.871025, 0.061568, 0.487365, -0.4745, 0.362226, 0.802273, -0.127142, -0.930055, 0.344722, 0, 7.44731, 0)
 shadow_enabled = true
 
-[node name="Water" type="MeshInstance3D" parent="Node3D" index="1"]
+[node name="Water" type="MeshInstance3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("PlaneMesh_havxl")
+skeleton = NodePath("")
 script = ExtResource("12_cffbp")
 
-[node name="Large Tile Forest" parent="." index="2" instance=ExtResource("13_x1ddo")]
+[node name="Large Tile Forest" parent="." index="3" instance=ExtResource("13_x1ddo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042366, -4.76837e-07, -0.0144974)
+
+[node name="Large Tile Forest3" parent="." index="4" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 0.953486, -0.301438, 0, 0.301438, 0.953486, 0.042366, -0.852995, 5.39864)
+
+[node name="Large Tile Forest2" parent="." index="5" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042366, 16.5, -0.0144974)
+
+[node name="Medium Blue Tile2" parent="." index="6" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -7)
+
+[node name="Medium Blue Tile4" parent="." index="7" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4.5)
+
+[node name="Medium Blue Tile3" parent="." index="8" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -9.5)
+
+[node name="Medium Blue Tile5" parent="." index="9" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 3.5, -9.5)
+
+[node name="Medium Blue Tile6" parent="." index="10" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4.5, -9.5)
+
+[node name="Medium Blue Tile7" parent="." index="11" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5.5, -7)
+
+[node name="Medium Blue Tile8" parent="." index="12" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 6.5, -4.5)
+
+[node name="Medium Blue Tile9" parent="." index="13" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 7.5, -4.5)
+
+[node name="Medium Blue Tile10" parent="." index="14" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, -7)
+
+[node name="Medium Blue Tile11" parent="." index="15" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, -4.5)
+
+[node name="Medium Blue Tile12" parent="." index="16" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, -9.5)
+
+[node name="Medium Blue Tile13" parent="." index="17" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 11.5, -9.5)
+
+[node name="Medium Blue Tile14" parent="." index="18" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 12.5, -9.5)
+
+[node name="Medium Blue Tile15" parent="." index="19" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 13.5, -7)
+
+[node name="Medium Blue Tile16" parent="." index="20" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 14.5, -4.5)
+
+[node name="Medium Blue Tile17" parent="." index="21" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 15.5, -4.5)
+
+[node name="Medium Blue Tile18" parent="." index="22" instance=ExtResource("14_ib32c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.5, -4.5)
+
+[node name="XRSimulator" parent="." index="23" instance=ExtResource("15_v3qca")]
+xr_origin = NodePath("../XROrigin3D")
+
+[node name="Ground" type="StaticBody3D" parent="." index="24"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_aa3d0")
+surface_material_override/0 = ExtResource("17_bu3g0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_3jai6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="25"]
+environment = SubResource("Environment_t0rgm")
+
+[connection signal="player_fall_damage" from="XROrigin3D/PlayerBody/FallDamage" to="." method="_on_fall_damage_player_fall_damage"]

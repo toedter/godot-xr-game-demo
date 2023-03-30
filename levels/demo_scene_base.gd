@@ -1,6 +1,9 @@
 class_name DemoSceneBase
 extends XRToolsSceneBase
 
+## PlayerBody - Player Physics Body Script
+@onready var player_body := XRToolsPlayerBody.find_instance(self)
+
 func _ready():
 	super()
 
