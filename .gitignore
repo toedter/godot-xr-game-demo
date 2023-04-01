@@ -3,7 +3,6 @@
 .idea/
 .import/
 
-*.import
 *.o
 *.os
 *.dblite
