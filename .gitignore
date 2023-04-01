@@ -1,11 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
 .idea/
+.import/
 
 *.o
 *.os
-.import/
-.godot/
 *.dblite
 *.exp
 *.lib
