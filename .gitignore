@@ -1,3 +1,16 @@
 # Godot 4+ specific ignores
 .godot/
 .idea/
+
+*.o
+*.os
+.import/
+.godot/
+*.dblite
+*.exp
+*.lib
+*.obj
+*.TMP
+logs
+Thumbs.db
+android/
