@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_v3qca"]
 [ext_resource type="Material" uid="uid://216mgrr62hdr" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="17_bu3g0"]
 [ext_resource type="PackedScene" uid="uid://dgq43kqkass58" path="res://assets/kayKit-scenes/tilelow_forest.tscn" id="19_d4m1u"]
-[ext_resource type="Texture2D" uid="uid://ccrocge6mm0wm" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="19_npbdg"]
+[ext_resource type="Texture2D" uid="uid://dc8l8oe1uds5b" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="19_npbdg"]
 [ext_resource type="PackedScene" uid="uid://cfxrekgcjilon" path="res://assets/kayKit-scenes/large_barrier.tscn" id="20_ektq7"]
 [ext_resource type="PackedScene" uid="uid://c72igq56ikfrp" path="res://assets/kayKit-scenes/tiel_slope_low_medium_forest.tscn" id="21_nw5in"]
 [ext_resource type="PackedScene" uid="uid://cpxnltjut3e3l" path="res://assets/kayKit-scenes/star.tscn" id="22_x8d1r"]
@@ -188,19 +188,15 @@ environment = SubResource("Environment_t0rgm")
 
 [node name="StaticBody3D" parent="." index="7" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
-metadata/_edit_group_ = true
 
 [node name="StaticBody3D2" parent="." index="8" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7.5)
-metadata/_edit_group_ = true
 
 [node name="StaticBody3D3" parent="." index="9" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
-metadata/_edit_group_ = true
 
 [node name="StaticBody3D4" parent="." index="10" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -12.5)
-metadata/_edit_group_ = true
 
 [node name="Large Barrier2" parent="." index="11" instance=ExtResource("20_ektq7")]
 transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, 2.49269, 0.983528, 0.0599227)
