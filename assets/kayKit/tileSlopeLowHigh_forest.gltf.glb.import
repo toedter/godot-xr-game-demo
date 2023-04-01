@@ -13,8 +13,8 @@ dest_files=["res://.godot/imported/tileSlopeLowHigh_forest.gltf.glb-14e964722e29
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type="StaticBody3D"
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true

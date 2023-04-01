@@ -14,7 +14,7 @@ dest_files=["res://.godot/imported/star.gltf.glb-7f5f5d51902690272ff13ca05e81442
 [params]
 
 nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_name="star"
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true

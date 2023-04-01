@@ -14,7 +14,7 @@ dest_files=["res://.godot/imported/tileHigh_forest.gltf.glb-cfe6f79becd612d02d39
 [params]
 
 nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true

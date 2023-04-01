@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://utga61rlgb3t"]
+[gd_scene load_steps=38 format=3 uid="uid://utga61rlgb3t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
@@ -15,10 +15,14 @@
 [ext_resource type="Script" path="res://levels/level-2/Water.gd" id="12_cffbp"]
 [ext_resource type="PackedScene" uid="uid://d2yejwiwab3wv" path="res://addons/godot-xr-tools/examples/fall_damage.tscn" id="12_kaev2"]
 [ext_resource type="PackedScene" uid="uid://dvvem4g7ivur2" path="res://assets/kayKit-scenes/large_tile_forest.tscn" id="13_x1ddo"]
-[ext_resource type="PackedScene" uid="uid://b36y3cweis8mt" path="res://assets/kayKit-scenes/medium_blue_tile.tscn" id="14_ib32c"]
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_v3qca"]
 [ext_resource type="Material" uid="uid://216mgrr62hdr" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="17_bu3g0"]
+[ext_resource type="PackedScene" uid="uid://dgq43kqkass58" path="res://assets/kayKit-scenes/tilelow_forest.tscn" id="19_d4m1u"]
 [ext_resource type="Texture2D" uid="uid://ccrocge6mm0wm" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="19_npbdg"]
+[ext_resource type="PackedScene" uid="uid://cfxrekgcjilon" path="res://assets/kayKit-scenes/large_barrier.tscn" id="20_ektq7"]
+[ext_resource type="PackedScene" uid="uid://c72igq56ikfrp" path="res://assets/kayKit-scenes/tiel_slope_low_medium_forest.tscn" id="21_nw5in"]
+[ext_resource type="PackedScene" uid="uid://cpxnltjut3e3l" path="res://assets/kayKit-scenes/star.tscn" id="22_x8d1r"]
+[ext_resource type="Script" path="res://assets/kayKit-scenes/star.gd" id="23_pwlxf"]
 
 [sub_resource type="Resource" id="Resource_qqcj5"]
 script = ExtResource("11_qur3a")
@@ -109,7 +113,7 @@ background_mode = 2
 sky = SubResource("Sky_quwgn")
 
 [node name="Level-2" instance=ExtResource("1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -0.00465679)
 script = ExtResource("2_4j61s")
 environment = null
 
@@ -159,71 +163,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("PlaneMesh_havxl")
 skeleton = NodePath("")
 script = ExtResource("12_cffbp")
+metadata/_edit_group_ = true
 
 [node name="Large Tile Forest" parent="." index="3" instance=ExtResource("13_x1ddo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042366, -4.76837e-07, -0.0144974)
 
-[node name="Large Tile Forest3" parent="." index="4" instance=ExtResource("13_x1ddo")]
-transform = Transform3D(1, 0, 0, 0, 0.953486, -0.301438, 0, 0.301438, 0.953486, 0.042366, -0.852995, 5.39864)
-
-[node name="Large Tile Forest2" parent="." index="5" instance=ExtResource("13_x1ddo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042366, 16.5, -0.0144974)
-
-[node name="Medium Blue Tile2" parent="." index="6" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -7)
-
-[node name="Medium Blue Tile4" parent="." index="7" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4.5)
-
-[node name="Medium Blue Tile3" parent="." index="8" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -9.5)
-
-[node name="Medium Blue Tile5" parent="." index="9" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 3.5, -9.5)
-
-[node name="Medium Blue Tile6" parent="." index="10" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4.5, -9.5)
-
-[node name="Medium Blue Tile7" parent="." index="11" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5.5, -7)
-
-[node name="Medium Blue Tile8" parent="." index="12" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 6.5, -4.5)
-
-[node name="Medium Blue Tile9" parent="." index="13" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 7.5, -4.5)
-
-[node name="Medium Blue Tile10" parent="." index="14" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, -7)
-
-[node name="Medium Blue Tile11" parent="." index="15" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, -4.5)
-
-[node name="Medium Blue Tile12" parent="." index="16" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, -9.5)
-
-[node name="Medium Blue Tile13" parent="." index="17" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 11.5, -9.5)
-
-[node name="Medium Blue Tile14" parent="." index="18" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 12.5, -9.5)
-
-[node name="Medium Blue Tile15" parent="." index="19" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 13.5, -7)
-
-[node name="Medium Blue Tile16" parent="." index="20" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 14.5, -4.5)
-
-[node name="Medium Blue Tile17" parent="." index="21" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 15.5, -4.5)
-
-[node name="Medium Blue Tile18" parent="." index="22" instance=ExtResource("14_ib32c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.5, -4.5)
-
-[node name="XRSimulator" parent="." index="23" instance=ExtResource("15_v3qca")]
+[node name="XRSimulator" parent="." index="4" instance=ExtResource("15_v3qca")]
 xr_origin = NodePath("../XROrigin3D")
 
-[node name="Ground" type="StaticBody3D" parent="." index="24"]
+[node name="Ground" type="StaticBody3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" index="0"]
@@ -235,7 +183,42 @@ surface_material_override/0 = ExtResource("17_bu3g0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_3jai6")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="25"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="6"]
 environment = SubResource("Environment_t0rgm")
+
+[node name="StaticBody3D" parent="." index="7" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D2" parent="." index="8" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7.5)
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D3" parent="." index="9" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D4" parent="." index="10" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -12.5)
+metadata/_edit_group_ = true
+
+[node name="Large Barrier2" parent="." index="11" instance=ExtResource("20_ektq7")]
+transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, 2.49269, 0.983528, 0.0599227)
+
+[node name="Large Barrier3" parent="." index="12" instance=ExtResource("20_ektq7")]
+transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, -2.59827, 0.983528, 0.0956945)
+
+[node name="tiel sslope low medium forest" parent="." index="13" instance=ExtResource("21_nw5in")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0800714, -0.380469, 4.00011)
+
+[node name="tiel sslope low medium forest2" parent="." index="14" instance=ExtResource("21_nw5in")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0708067, -0.95428, 6.01063)
+
+[node name="tiel sslope low medium forest3" parent="." index="15" instance=ExtResource("21_nw5in")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0708067, -1.45428, 8.01063)
+
+[node name="star" parent="." index="16" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0118799, 3.98551, -12.4953)
+script = ExtResource("23_pwlxf")
 
 [connection signal="player_fall_damage" from="XROrigin3D/PlayerBody/FallDamage" to="." method="_on_fall_damage_player_fall_damage"]

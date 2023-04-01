@@ -14,7 +14,7 @@ dest_files=["res://.godot/imported/plantA_forest.gltf.glb-0e8a0e424b735386903569
 [params]
 
 nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true
