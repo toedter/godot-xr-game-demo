@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://utga61rlgb3t"]
+[gd_scene load_steps=45 format=3 uid="uid://utga61rlgb3t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
@@ -14,15 +14,21 @@
 [ext_resource type="Shader" path="res://assets/water/water.gdshader" id="11_xrcit"]
 [ext_resource type="Script" path="res://levels/level-2/Water.gd" id="12_cffbp"]
 [ext_resource type="PackedScene" uid="uid://d2yejwiwab3wv" path="res://addons/godot-xr-tools/examples/fall_damage.tscn" id="12_kaev2"]
+[ext_resource type="PackedScene" uid="uid://0xlsitpu17r1" path="res://addons/godot-xr-tools/functions/movement_footstep.tscn" id="13_4mhug"]
 [ext_resource type="PackedScene" uid="uid://dvvem4g7ivur2" path="res://assets/kayKit-scenes/large_tile_forest.tscn" id="13_x1ddo"]
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_v3qca"]
+[ext_resource type="AudioStream" uid="uid://dfhaxl0fgric8" path="res://assets/sounds/steptap.wav" id="16_8ti4d"]
+[ext_resource type="Script" path="res://levels/level-2/Ground.gd" id="16_g46bk"]
 [ext_resource type="Material" uid="uid://216mgrr62hdr" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="17_bu3g0"]
+[ext_resource type="PackedScene" uid="uid://cvokcudrffkgc" path="res://addons/godot-xr-tools/functions/movement_glide.tscn" id="17_wj3nj"]
+[ext_resource type="PackedScene" uid="uid://bgts3vpmjn6bb" path="res://addons/godot-xr-tools/functions/movement_wind.tscn" id="18_m2lp4"]
 [ext_resource type="PackedScene" uid="uid://dgq43kqkass58" path="res://assets/kayKit-scenes/tilelow_forest.tscn" id="19_d4m1u"]
 [ext_resource type="Texture2D" uid="uid://dc8l8oe1uds5b" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="19_npbdg"]
 [ext_resource type="PackedScene" uid="uid://cfxrekgcjilon" path="res://assets/kayKit-scenes/large_barrier.tscn" id="20_ektq7"]
-[ext_resource type="PackedScene" uid="uid://c72igq56ikfrp" path="res://assets/kayKit-scenes/tiel_slope_low_medium_forest.tscn" id="21_nw5in"]
 [ext_resource type="PackedScene" uid="uid://cpxnltjut3e3l" path="res://assets/kayKit-scenes/star.tscn" id="22_x8d1r"]
-[ext_resource type="Script" path="res://assets/kayKit-scenes/star.gd" id="23_pwlxf"]
+[ext_resource type="AudioStream" uid="uid://bmb662sxatgk8" path="res://assets/sounds/jump.wav" id="23_qel51"]
+[ext_resource type="AudioStream" uid="uid://c57yoeic8cc5" path="res://assets/sounds/player-spawned.ogg" id="23_qvhdo"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/audio/surface_audio_type.gd" id="26_wp37p"]
 
 [sub_resource type="Resource" id="Resource_qqcj5"]
 script = ExtResource("11_qur3a")
@@ -35,6 +41,14 @@ jump_max_slope = 45.0
 jump_velocity = 5.0
 bounciness = 0.0
 bounce_threshold = 1.0
+
+[sub_resource type="Resource" id="Resource_8kdlu"]
+script = ExtResource("26_wp37p")
+name = ""
+jump_sound = ExtResource("23_qel51")
+walk_sounds = Array[AudioStream]([ExtResource("16_8ti4d")])
+walk_pitch_minimum = 0.8
+walk_pitch_maximum = 1.2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6wdv0"]
 
@@ -97,7 +111,7 @@ subdivide_width = 500
 subdivide_depth = 500
 
 [sub_resource type="QuadMesh" id="QuadMesh_aa3d0"]
-size = Vector2(96, 96)
+size = Vector2(500, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3jai6"]
 size = Vector3(100, 2, 100)
@@ -152,7 +166,15 @@ jump_button_action = "ax_button"
 physics = SubResource("Resource_qqcj5")
 
 [node name="FallDamage" parent="XROrigin3D/PlayerBody" index="0" instance=ExtResource("12_kaev2")]
-ground_only = true
+damage_threshold = 5.0
+
+[node name="MovementFootstep" parent="XROrigin3D" index="4" instance=ExtResource("13_4mhug")]
+default_surface_audio_type = SubResource("Resource_8kdlu")
+
+[node name="MovementGlide" parent="XROrigin3D" index="5" instance=ExtResource("17_wj3nj")]
+turn_with_roll = true
+
+[node name="MovementWind" parent="XROrigin3D" index="6" instance=ExtResource("18_m2lp4")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
 transform = Transform3D(0.871025, 0.061568, 0.487365, -0.4745, 0.362226, 0.802273, -0.127142, -0.930055, 0.344722, 0, 7.44731, 0)
@@ -165,14 +187,12 @@ skeleton = NodePath("")
 script = ExtResource("12_cffbp")
 metadata/_edit_group_ = true
 
-[node name="Large Tile Forest" parent="." index="3" instance=ExtResource("13_x1ddo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042366, -4.76837e-07, -0.0144974)
-
-[node name="XRSimulator" parent="." index="4" instance=ExtResource("15_v3qca")]
+[node name="XRSimulator" parent="." index="3" instance=ExtResource("15_v3qca")]
 xr_origin = NodePath("../XROrigin3D")
 
-[node name="Ground" type="StaticBody3D" parent="." index="5"]
+[node name="Ground" type="StaticBody3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+script = ExtResource("16_g46bk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -183,38 +203,135 @@ surface_material_override/0 = ExtResource("17_bu3g0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_3jai6")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="6"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5"]
 environment = SubResource("Environment_t0rgm")
 
-[node name="StaticBody3D" parent="." index="7" instance=ExtResource("19_d4m1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="6"]
+stream = ExtResource("23_qvhdo")
 
-[node name="StaticBody3D2" parent="." index="8" instance=ExtResource("19_d4m1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7.5)
+[node name="map" type="Node" parent="." index="7"]
 
-[node name="StaticBody3D3" parent="." index="9" instance=ExtResource("19_d4m1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
+[node name="Start Platform" parent="map" index="0" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0542459, 5.51449, -0.0191542)
 
-[node name="StaticBody3D4" parent="." index="10" instance=ExtResource("19_d4m1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -12.5)
+[node name="Platform2" parent="map" index="1" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0542459, 5.51449, -26.0192)
 
-[node name="Large Barrier2" parent="." index="11" instance=ExtResource("20_ektq7")]
-transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, 2.49269, 0.983528, 0.0599227)
+[node name="StaticBody3D" parent="map" index="2" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -4.00466)
 
-[node name="Large Barrier3" parent="." index="12" instance=ExtResource("20_ektq7")]
-transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, -2.59827, 0.983528, 0.0956945)
+[node name="StaticBody3D2" parent="map" index="3" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -6.00466)
 
-[node name="tiel sslope low medium forest" parent="." index="13" instance=ExtResource("21_nw5in")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0800714, -0.380469, 4.00011)
+[node name="StaticBody3D3" parent="map" index="4" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -8.00466)
 
-[node name="tiel sslope low medium forest2" parent="." index="14" instance=ExtResource("21_nw5in")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0708067, -0.95428, 6.01063)
+[node name="StaticBody3D4" parent="map" index="5" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -10.0047)
 
-[node name="tiel sslope low medium forest3" parent="." index="15" instance=ExtResource("21_nw5in")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0708067, -1.45428, 8.01063)
+[node name="StaticBody3D5" parent="map" index="6" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -12.0047)
 
-[node name="star" parent="." index="16" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0118799, 3.98551, -12.4953)
-script = ExtResource("23_pwlxf")
+[node name="StaticBody3D6" parent="map" index="7" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -14.0047)
+
+[node name="StaticBody3D7" parent="map" index="8" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -16.0047)
+
+[node name="StaticBody3D8" parent="map" index="9" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -18.0047)
+
+[node name="StaticBody3D9" parent="map" index="10" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -20.0047)
+
+[node name="StaticBody3D10" parent="map" index="11" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -22.0047)
+
+[node name="Large Barrier2" parent="map" index="12" instance=ExtResource("20_ektq7")]
+transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, 2.50457, 6.49802, 0.0552659)
+
+[node name="Large Barrier3" parent="map" index="13" instance=ExtResource("20_ektq7")]
+transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, -2.58639, 6.49802, 0.0910377)
+
+[node name="star" parent="map" index="14" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 7.5, -20)
+
+[node name="star3" parent="map" index="15" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -18)
+
+[node name="star2" parent="map" index="16" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -22)
+
+[node name="star4" parent="map" index="17" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 10, -26.5)
+
+[node name="star7" parent="map" index="18" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 15, 5.00004)
+
+[node name="star5" parent="map" index="19" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 9.5, -26.5)
+
+[node name="star6" parent="map" index="20" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 9, -26.5)
+
+[node name="Node3D" type="Node3D" parent="map" index="21"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -7.5, -26.5)
+
+[node name="Platform3" parent="map/Node3D" index="0" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.054245, 16.5145, -26.0192)
+
+[node name="StaticBody3D11" parent="map/Node3D" index="1" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 13.5145, -4.00466)
+
+[node name="StaticBody3D12" parent="map/Node3D" index="2" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 13.5145, -6.00466)
+
+[node name="StaticBody3D13" parent="map/Node3D" index="3" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 14.0145, -8.00466)
+
+[node name="StaticBody3D14" parent="map/Node3D" index="4" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 14.0145, -10.0047)
+
+[node name="StaticBody3D15" parent="map/Node3D" index="5" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 14.5145, -12.0047)
+
+[node name="StaticBody3D16" parent="map/Node3D" index="6" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 14.5145, -14.0047)
+
+[node name="StaticBody3D17" parent="map/Node3D" index="7" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 15.0145, -16.0047)
+
+[node name="StaticBody3D18" parent="map/Node3D" index="8" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 15.0145, -18.0047)
+
+[node name="StaticBody3D19" parent="map/Node3D" index="9" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 15.5145, -20.0047)
+
+[node name="StaticBody3D20" parent="map/Node3D" index="10" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011879, 15.5145, -22.0047)
+
+[node name="Node3D2" type="Node3D" parent="map" index="22"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 26, -2.5, -26.5)
+
+[node name="Platform3" parent="map/Node3D2" index="0" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.054245, 17.0145, -22.0192)
+
+[node name="Platform4" parent="map/Node3D2" index="1" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0542431, 8.0145, -50.0192)
+
+[node name="StaticBody3D12" parent="map/Node3D2" index="2" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 12.0145, -5.00466)
+
+[node name="StaticBody3D14" parent="map/Node3D2" index="3" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 13.0145, -8.00466)
+
+[node name="StaticBody3D16" parent="map/Node3D2" index="4" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118923, 14.0145, -11.0047)
+
+[node name="StaticBody3D18" parent="map/Node3D2" index="5" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118847, 15.0145, -14.0047)
+
+[node name="StaticBody3D20" parent="map/Node3D2" index="6" instance=ExtResource("19_d4m1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011879, 16.0145, -17.0047)
 
 [connection signal="player_fall_damage" from="XROrigin3D/PlayerBody/FallDamage" to="." method="_on_fall_damage_player_fall_damage"]

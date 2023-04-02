@@ -7,8 +7,10 @@ extends DemoSceneBase
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
-	var current_origin := origin_node.global_transform
 
 
-func _on_fall_damage_player_fall_damage(damage):
+func _on_fall_damage_player_fall_damage(_damage):
 	origin_node.global_transform = start_origin
+	if !$AudioStreamPlayer.playing:
+		$AudioStreamPlayer.play()
+
