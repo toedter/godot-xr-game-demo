@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://utga61rlgb3t"]
+[gd_scene load_steps=48 format=3 uid="uid://utga61rlgb3t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_v3qca"]
 [ext_resource type="AudioStream" uid="uid://dfhaxl0fgric8" path="res://assets/sounds/steptap.wav" id="16_8ti4d"]
 [ext_resource type="Script" path="res://levels/level-2/Ground.gd" id="16_g46bk"]
-[ext_resource type="Material" uid="uid://216mgrr62hdr" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="17_bu3g0"]
 [ext_resource type="PackedScene" uid="uid://cvokcudrffkgc" path="res://addons/godot-xr-tools/functions/movement_glide.tscn" id="17_wj3nj"]
 [ext_resource type="PackedScene" uid="uid://bgts3vpmjn6bb" path="res://addons/godot-xr-tools/functions/movement_wind.tscn" id="18_m2lp4"]
 [ext_resource type="PackedScene" uid="uid://dgq43kqkass58" path="res://assets/kayKit-scenes/tilelow_forest.tscn" id="19_d4m1u"]
@@ -28,6 +27,9 @@
 [ext_resource type="PackedScene" uid="uid://cpxnltjut3e3l" path="res://assets/kayKit-scenes/star.tscn" id="22_x8d1r"]
 [ext_resource type="AudioStream" uid="uid://bmb662sxatgk8" path="res://assets/sounds/jump.wav" id="23_qel51"]
 [ext_resource type="AudioStream" uid="uid://c57yoeic8cc5" path="res://assets/sounds/player-spawned.ogg" id="23_qvhdo"]
+[ext_resource type="Texture2D" uid="uid://dq76awdlel1ge" path="res://assets/materials/rocky_trail_diff_4k.jpg" id="23_ufkwu"]
+[ext_resource type="Texture2D" uid="uid://67eaj4jgfgyj" path="res://assets/materials/rocky_trail_nor_gl_4k.jpg" id="24_2ytqa"]
+[ext_resource type="Texture2D" uid="uid://cq8d3yjpisete" path="res://assets/materials/rocky_trail_rough_4k.jpg" id="25_tdekx"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/audio/surface_audio_type.gd" id="26_wp37p"]
 
 [sub_resource type="Resource" id="Resource_qqcj5"]
@@ -110,7 +112,15 @@ size = Vector2(500, 500)
 subdivide_width = 500
 subdivide_depth = 500
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xog"]
+albedo_texture = ExtResource("23_ufkwu")
+metallic = 1.0
+metallic_texture = ExtResource("24_2ytqa")
+roughness_texture = ExtResource("25_tdekx")
+uv1_scale = Vector3(60, 60, 60)
+
 [sub_resource type="QuadMesh" id="QuadMesh_aa3d0"]
+material = SubResource("StandardMaterial3D_h8xog")
 size = Vector2(500, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3jai6"]
@@ -129,7 +139,6 @@ sky = SubResource("Sky_quwgn")
 [node name="Level-2" instance=ExtResource("1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -0.00465679)
 script = ExtResource("2_4j61s")
-environment = null
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -197,7 +206,6 @@ script = ExtResource("16_g46bk")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("QuadMesh_aa3d0")
-surface_material_override/0 = ExtResource("17_bu3g0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
