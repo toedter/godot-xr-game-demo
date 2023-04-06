@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://utga61rlgb3t"]
+[gd_scene load_steps=13 format=3 uid="uid://cynfgmiviq53j"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_1f6fl"]
 [ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="8_ftouv"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
+[ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="12_ddxow"]
 
 [node name="MainMenuLevel" instance=ExtResource("1")]
 script = ExtResource("2_taoax")
@@ -40,3 +41,6 @@ jump_button_action = "ax_button"
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("8")]
 
 [node name="BasicMap" parent="." index="1" instance=ExtResource("4")]
+
+[node name="XRSimulator" parent="." index="2" instance=ExtResource("12_ddxow")]
+xr_origin = NodePath("../XROrigin3D")

@@ -1,14 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpxnltjut3e3l"]
-
-[ext_resource type="AudioStream" uid="uid://b0gdb3bagdqxj" path="res://assets/sounds/coin.mp3" id="1_vvndn"]
+[gd_scene load_steps=6 format=3 uid="uid://cpxnltjut3e3l"]
 
 [sub_resource type="GDScript" id="GDScript_aj6vm"]
 script/source = "extends Area3D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+## Signal emitted when the coin is collected
+signal coin_collected()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,12 +14,11 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if body.name == \"PlayerBody\":
-		if !$AudioStreamPlayer3D.playing:
-			$AudioStreamPlayer3D.play()
+		emit_signal(\"coin_collected\")
+		queue_free()
 
+	
 
-func _on_audio_stream_player_3d_finished():
-	queue_free()
 "
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gupua"]
@@ -71,16 +66,11 @@ collision_mask = 524289
 audio_bus_override = true
 script = SubResource("GDScript_aj6vm")
 
-[node name="star" type="MeshInstance3D" parent="."]
+[node name="starMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_dgi3v")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="starCollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_2hve6")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("1_vvndn")
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="finished" from="AudioStreamPlayer3D" to="." method="_on_audio_stream_player_3d_finished"]
