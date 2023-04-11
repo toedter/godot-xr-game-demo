@@ -135,6 +135,8 @@ radius = 0.85
 
 [node name="Teleport" type="Node3D"]
 script = ExtResource("1_mkuv0")
+scene = null
+active = true
 
 [node name="TeleportBody" type="StaticBody3D" parent="."]
 
