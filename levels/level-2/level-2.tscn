@@ -138,8 +138,8 @@ size = Vector2(500, 500)
 subdivide_width = 500
 subdivide_depth = 500
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w3nhj"]
-points = PackedVector3Array(5.07738, 0.079334, 5.07738, -5.07738, -0.079334, -5.07738, -5.07738, 0.079334, -5.07738, 5.07738, -0.079334, -5.07738, -5.07738, -0.079334, 5.07738, -5.07738, 0.079334, 5.07738, 5.07738, 0.079334, -5.07738, 5.07738, -0.079334, 5.07738)
+[sub_resource type="BoxShape3D" id="BoxShape3D_1fobc"]
+size = Vector3(500, 1, 500)
 
 [node name="WaterLevel" instance=ExtResource("1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -0.00465679)
@@ -371,7 +371,7 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Water" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-shape = SubResource("ConvexPolygonShape3D_w3nhj")
+shape = SubResource("BoxShape3D_1fobc")
 
 [node name="Teleport" parent="." index="8" instance=ExtResource("33_qbuua")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.8048, 1.00001, 40.0403)
