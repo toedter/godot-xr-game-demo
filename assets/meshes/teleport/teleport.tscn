@@ -135,8 +135,7 @@ radius = 0.85
 
 [node name="Teleport" type="Node3D"]
 script = ExtResource("1_mkuv0")
-scene = null
-active = true
+active = false
 
 [node name="TeleportBody" type="StaticBody3D" parent="."]
 
@@ -165,6 +164,7 @@ collision_mask = 524288
 
 [node name="Cylinder" type="MeshInstance3D" parent="TeleportArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+visible = false
 gi_mode = 0
 mesh = SubResource("ArrayMesh_b4xkm")
 skeleton = NodePath("")

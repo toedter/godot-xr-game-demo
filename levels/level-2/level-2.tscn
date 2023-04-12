@@ -370,14 +370,14 @@ script = ExtResource("33_gdrjp")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Water" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
 shape = SubResource("BoxShape3D_1fobc")
 
 [node name="Teleport" parent="." index="8" instance=ExtResource("33_qbuua")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.8048, 1.00001, 40.0403)
-scene_base = NodePath("..")
-scene = ""
-active = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9384, 1.00889, 41.2253)
+inactive_beam_visible = true
+active_beam_color = Color(0, 0, 0.952941, 1)
+inactive_beam_color = Color(0.968627, 0, 0, 1)
 
 [connection signal="body_entered" from="Terrain/Water" to="Terrain/Water" method="_on_body_entered"]
 [connection signal="player_hit_water" from="Terrain/Water" to="." method="_on_water_player_hit_water"]
