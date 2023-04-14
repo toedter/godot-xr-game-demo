@@ -89,7 +89,6 @@ func _set_inactive_beam_visible(value):
 		_update_teleport()
 
 func _update_teleport():
-	print("update teleport")
 	if active:
 		$TeleportArea/Cylinder.get_surface_override_material(0).set_shader_parameter("beam_color", active_beam_color)
 		$TeleportArea/Cylinder.visible = true

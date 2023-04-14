@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cxnu4wp4tbgaq"]
+[gd_scene load_steps=53 format=3 uid="uid://cxnu4wp4tbgaq"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
@@ -33,6 +33,8 @@
 [ext_resource type="AudioStream" uid="uid://b0gdb3bagdqxj" path="res://assets/sounds/coin.mp3" id="32_aa4ek"]
 [ext_resource type="Script" path="res://levels/level-2/WaterMesh.gd" id="33_gdrjp"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="33_qbuua"]
+[ext_resource type="Script" path="res://assets/platformer-scenes/moving_platform2.gd" id="34_i460j"]
+[ext_resource type="PackedScene" uid="uid://dk87rfw3mqnps" path="res://assets/platformer-scenes/moving_platform.tscn" id="34_ulvs7"]
 
 [sub_resource type="Resource" id="Resource_qqcj5"]
 script = ExtResource("11_qur3a")
@@ -183,7 +185,7 @@ physics = SubResource("Resource_qqcj5")
 default_surface_audio_type = SubResource("Resource_8kdlu")
 
 [node name="MovementGlide" parent="XROrigin3D" index="5" instance=ExtResource("17_wj3nj")]
-glide_forward_speed = 5.0
+glide_forward_speed = 10.0
 turn_with_roll = true
 
 [node name="MovementWind" parent="XROrigin3D" index="6" instance=ExtResource("18_m2lp4")]
@@ -330,19 +332,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0542412, 8.0145, -60.4417)
 [node name="Platform5" parent="Terrain/Platforms/Node3D2" index="2" instance=ExtResource("13_x1ddo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0542412, 8.0145, -66.4169)
 
-[node name="StaticBody3D12" parent="Terrain/Platforms/Node3D2" index="3" instance=ExtResource("19_d4m1u")]
+[node name="Platform6" parent="Terrain/Platforms/Node3D2" index="3" instance=ExtResource("13_x1ddo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.4662, 8.0145, -66.4169)
+
+[node name="StaticBody3D12" parent="Terrain/Platforms/Node3D2" index="4" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 12.0145, -5.00466)
 
-[node name="StaticBody3D14" parent="Terrain/Platforms/Node3D2" index="4" instance=ExtResource("19_d4m1u")]
+[node name="StaticBody3D14" parent="Terrain/Platforms/Node3D2" index="5" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118809, 13.0145, -8.00466)
 
-[node name="StaticBody3D16" parent="Terrain/Platforms/Node3D2" index="5" instance=ExtResource("19_d4m1u")]
+[node name="StaticBody3D16" parent="Terrain/Platforms/Node3D2" index="6" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118923, 14.0145, -11.0047)
 
-[node name="StaticBody3D18" parent="Terrain/Platforms/Node3D2" index="6" instance=ExtResource("19_d4m1u")]
+[node name="StaticBody3D18" parent="Terrain/Platforms/Node3D2" index="7" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118847, 15.0145, -14.0047)
 
-[node name="StaticBody3D20" parent="Terrain/Platforms/Node3D2" index="7" instance=ExtResource("19_d4m1u")]
+[node name="StaticBody3D20" parent="Terrain/Platforms/Node3D2" index="8" instance=ExtResource("19_d4m1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011879, 16.0145, -17.0047)
 
 [node name="Ground" type="StaticBody3D" parent="Terrain" index="1"]
@@ -373,9 +378,43 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
 shape = SubResource("BoxShape3D_1fobc")
 
+[node name="MovingPlatform" parent="Terrain" index="3" instance=ExtResource("34_ulvs7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.57571, -7.30696, 39.8407)
+
+[node name="star11" parent="Terrain/MovingPlatform" index="4" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0398, 9.90436, -0.0300064)
+
+[node name="star12" parent="Terrain/MovingPlatform" index="5" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0776343, 9.90436, -10.9938)
+
+[node name="star13" parent="Terrain/MovingPlatform" index="6" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9681, 9.90436, 0.00368881)
+
+[node name="star14" parent="Terrain/MovingPlatform" index="7" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.071167, 9.90436, 10.9867)
+
+[node name="MovingPlatform2" parent="Terrain" index="4" instance=ExtResource("34_ulvs7")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 7.57571, -3.2841, 39.8407)
+script = ExtResource("34_i460j")
+rate = -10.0
+
+[node name="star11" parent="Terrain/MovingPlatform2" index="4" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0398, 9.90436, -0.0300064)
+
+[node name="star12" parent="Terrain/MovingPlatform2" index="5" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0776343, 9.90436, -10.9938)
+
+[node name="star13" parent="Terrain/MovingPlatform2" index="6" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9681, 9.90436, 0.00368881)
+
+[node name="star14" parent="Terrain/MovingPlatform2" index="7" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.071167, 9.90436, 10.9867)
+
 [node name="Teleport" parent="." index="8" instance=ExtResource("33_qbuua")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9384, 1.00889, 41.2253)
-inactive_beam_visible = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2876, 1.00889, 40.2082)
+scene_base = NodePath("..")
+scene = "res://levels/level-1/level-1.tscn"
+active = true
 active_beam_color = Color(0, 0, 0.952941, 1)
 inactive_beam_color = Color(0.968627, 0, 0, 1)
 
