@@ -1,23 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpxnltjut3e3l"]
 
-[sub_resource type="GDScript" id="GDScript_aj6vm"]
-script/source = "extends Area3D
-
-## Signal emitted when the coin is collected
-signal coin_collected()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	rotate_y(deg_to_rad(delta * 100))
-
-func _on_body_entered(body):
-	if body.name == \"PlayerBody\":
-		emit_signal(\"coin_collected\")
-		queue_free()
-
-	
-
-"
+[ext_resource type="Script" path="res://assets/kayKit-scenes/star.gd" id="1_na8hp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gupua"]
 resource_name = "Yellow"
@@ -62,7 +45,7 @@ points = PackedVector3Array(-5.96046e-08, 0.648746, -1.3411e-07, -5.96046e-08, 0
 collision_layer = 524289
 collision_mask = 524289
 audio_bus_override = true
-script = SubResource("GDScript_aj6vm")
+script = ExtResource("1_na8hp")
 
 [node name="starMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_dgi3v")

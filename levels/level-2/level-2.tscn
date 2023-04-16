@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cxnu4wp4tbgaq"]
+[gd_scene load_steps=54 format=3 uid="uid://cxnu4wp4tbgaq"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="33_qbuua"]
 [ext_resource type="Script" path="res://assets/platformer-scenes/moving_platform2.gd" id="34_i460j"]
 [ext_resource type="PackedScene" uid="uid://dk87rfw3mqnps" path="res://assets/platformer-scenes/moving_platform.tscn" id="34_ulvs7"]
+[ext_resource type="PackedScene" uid="uid://b217p51yaogct" path="res://assets/platformer-scenes/moving_platform2.tscn" id="35_knptu"]
 
 [sub_resource type="Resource" id="Resource_qqcj5"]
 script = ExtResource("11_qur3a")
@@ -148,7 +149,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0118799, 5.51449, -0.004656
 script = ExtResource("2_4j61s")
 
 [node name="XROrigin3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89791, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00645373, 0.47859, 0.631595)
 
 [node name="LeftHand" parent="XROrigin3D" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.280445, 2, -0.5)
@@ -237,6 +238,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9881, 3.48551, -26.4953)
 
 [node name="StarAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="6"]
 stream = ExtResource("32_aa4ek")
+max_polyphony = 3
 
 [node name="Terrain" type="Node3D" parent="." index="7"]
 
@@ -379,42 +381,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
 shape = SubResource("BoxShape3D_1fobc")
 
 [node name="MovingPlatform" parent="Terrain" index="3" instance=ExtResource("34_ulvs7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.57571, -7.30696, 39.8407)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.57571, -6.83339, 39.8407)
+metadata/_edit_group_ = true
 
 [node name="star11" parent="Terrain/MovingPlatform" index="4" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0398, 9.90436, -0.0300064)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.908, 9.90436, -0.0299988)
 
 [node name="star12" parent="Terrain/MovingPlatform" index="5" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0776343, 9.90436, -10.9938)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07763, 9.90436, -12.1777)
 
 [node name="star13" parent="Terrain/MovingPlatform" index="6" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9681, 9.90436, 0.00368881)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.231, 9.90436, 0.00370026)
 
 [node name="star14" parent="Terrain/MovingPlatform" index="7" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.071167, 9.90436, 10.9867)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0711699, 9.90436, 12.0522)
 
-[node name="MovingPlatform2" parent="Terrain" index="4" instance=ExtResource("34_ulvs7")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 7.57571, -3.2841, 39.8407)
+[node name="MovingPlatform2" parent="Terrain" index="4" instance=ExtResource("35_knptu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.51541, -5.69246, 39.8274)
 script = ExtResource("34_i460j")
 rate = -10.0
+metadata/_edit_group_ = true
 
-[node name="star11" parent="Terrain/MovingPlatform2" index="4" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0398, 9.90436, -0.0300064)
+[node name="star15" parent="Terrain/MovingPlatform2" index="5" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05366, 9.94736, 0.0169945)
 
-[node name="star12" parent="Terrain/MovingPlatform2" index="5" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0776343, 9.90436, -10.9938)
+[node name="star16" parent="Terrain/MovingPlatform2" index="6" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.16702, 9.94736, -0.0167046)
 
-[node name="star13" parent="Terrain/MovingPlatform2" index="6" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9681, 9.90436, 0.00368881)
+[node name="star17" parent="Terrain/MovingPlatform2" index="7" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0173316, 9.94736, -6.04743)
 
-[node name="star14" parent="Terrain/MovingPlatform2" index="7" instance=ExtResource("22_x8d1r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.071167, 9.90436, 10.9867)
+[node name="star18" parent="Terrain/MovingPlatform2" index="8" instance=ExtResource("22_x8d1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0108714, 9.94736, 6.02747)
 
 [node name="Teleport" parent="." index="8" instance=ExtResource("33_qbuua")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2876, 1.00889, 40.2082)
 scene_base = NodePath("..")
 scene = "res://levels/level-1/level-1.tscn"
-active = true
 active_beam_color = Color(0, 0, 0.952941, 1)
 inactive_beam_color = Color(0.968627, 0, 0, 1)
 

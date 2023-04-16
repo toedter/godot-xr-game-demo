@@ -6,16 +6,15 @@
 [node name="MovingPlatform" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0141144, -10.3782, 0.0118856)
 script = ExtResource("1_y2irn")
-metadata/_edit_group_ = true
 
 [node name="Platform5" parent="." instance=ExtResource("2_oa7fp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0151211, 8.0145, 11.0196)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0151211, 8.0145, 12.0196)
 
 [node name="Platform6" parent="." instance=ExtResource("2_oa7fp")]
-transform = Transform3D(0.999987, 6.41614e-07, 0.00519517, 6.41614e-07, 1, -0.000247452, -0.00519517, 0.000247452, 0.999987, -0.0469323, 8.0145, -11.0376)
+transform = Transform3D(0.999987, 6.41614e-07, 0.00519517, 6.41614e-07, 1, -0.000247452, -0.00519517, 0.000247452, 0.999987, -0.0469323, 8.0145, -12.0376)
 
 [node name="Platform7" parent="." instance=ExtResource("2_oa7fp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0446, 8.0145, -0.0480489)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0446, 8.0145, -0.0480489)
 
 [node name="Platform8" parent="." instance=ExtResource("2_oa7fp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9635, 8.0145, -0.0306014)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9635, 8.0145, -0.0306014)
