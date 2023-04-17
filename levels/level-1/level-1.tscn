@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://cynfgmiviq53j"]
+[gd_scene load_steps=32 format=3 uid="uid://cynfgmiviq53j"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
-[ext_resource type="PackedScene" uid="uid://rypqa6qcv0st" path="res://assets/maps/basic_map.tscn" id="4"]
 [ext_resource type="Material" uid="uid://dy4ya7w0k18ds" path="res://addons/godot-xr-tools/hands/materials/glove_caucasian_dark_camo.material" id="4_lkqix"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bft3xyxs31ci3" path="res://addons/godot-xr-tools/functions/function_pose_detector.tscn" id="5_xgcrx"]
@@ -12,20 +11,107 @@
 [ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="8_ftouv"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="12_ddxow"]
-[ext_resource type="Texture2D" uid="uid://dc8l8oe1uds5b" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="13_50lrx"]
+[ext_resource type="PackedScene" uid="uid://cd1ifv6lrpdth" path="res://assets/kayKit-dungeo-scenes/tile_cracked_large.tscn" id="13_0m31k"]
+[ext_resource type="PackedScene" uid="uid://cy4heklmp754q" path="res://assets/kayKit-dungeo-scenes/wall.tscn" id="14_t71pd"]
+[ext_resource type="PackedScene" uid="uid://dcjyord7aweit" path="res://assets/kayKit-dungeo-scenes/wall_gate_door.tscn" id="15_c4aw1"]
+[ext_resource type="PackedScene" uid="uid://b10yt0hknitre" path="res://assets/kayKit-dungeo-scenes/wall_gate_corner.tscn" id="16_flmvj"]
+[ext_resource type="Script" path="res://levels/level-2/Water.gd" id="17_e4i0g"]
+[ext_resource type="Shader" path="res://assets/water/water.gdshader" id="18_k3tog"]
+[ext_resource type="Script" path="res://levels/level-2/WaterMesh.gd" id="19_iaagb"]
+[ext_resource type="PackedScene" uid="uid://bixfn84lot0lp" path="res://assets/kayKit-dungeo-scenes/torch.tscn" id="20_iqgpb"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8erdx"]
-panorama = ExtResource("13_50lrx")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_owiww"]
+sky_top_color = Color(0.0627451, 0.0823529, 0.113725, 1)
+sky_horizon_color = Color(0.25098, 0.258824, 0.270588, 1)
+sky_cover_modulate = Color(0.160784, 0.160784, 0.160784, 1)
+ground_bottom_color = Color(0.305882, 0.298039, 0.298039, 1)
+ground_horizon_color = Color(0.254902, 0.262745, 0.27451, 1)
+sun_angle_max = 9.55
 
 [sub_resource type="Sky" id="Sky_quwgn"]
-sky_material = SubResource("PanoramaSkyMaterial_8erdx")
+sky_material = SubResource("ProceduralSkyMaterial_owiww")
+process_mode = 1
 
-[sub_resource type="Environment" id="Environment_7jcoo"]
+[sub_resource type="Environment" id="Environment_3xrav"]
 background_mode = 2
+background_energy_multiplier = 1.1
 sky = SubResource("Sky_quwgn")
+ambient_light_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+ambient_light_sky_contribution = 0.49
+glow_enabled = true
+glow_intensity = 2.33
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6wdv0"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ixsol"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_6wdv0")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m8q15"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_30c0h"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_m8q15")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1oumy"]
+noise_type = 3
+frequency = 0.001
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_slsuw"]
+seamless = true
+noise = SubResource("FastNoiseLite_1oumy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvb3w"]
+render_priority = 0
+shader = ExtResource("18_k3tog")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
+shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_time = 0.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_2_direction = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.2
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 0.15
+shader_parameter/beers_law = 0.089
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.362
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0.992157, 0.992157, 0.992157, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_ixsol")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_30c0h")
+shader_parameter/wave = SubResource("NoiseTexture2D_slsuw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tqsmm"]
+material = SubResource("ShaderMaterial_pvb3w")
+size = Vector2(500, 500)
+subdivide_width = 500
+subdivide_depth = 500
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uu5q3"]
+size = Vector3(500, 1, 500)
 
 [node name="MainMenuLevel" instance=ExtResource("1")]
 script = ExtResource("2_taoax")
+
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59467, 0)
+
+[node name="XRCamera3D" parent="XROrigin3D" index="0"]
+current = true
 
 [node name="FunctionPoseDetector" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("5_xgcrx")]
 visible = false
@@ -51,10 +137,139 @@ jump_button_action = "ax_button"
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("8")]
 
-[node name="BasicMap" parent="." index="1" instance=ExtResource("4")]
-
-[node name="XRSimulator" parent="." index="2" instance=ExtResource("12_ddxow")]
+[node name="XRSimulator" parent="." index="1" instance=ExtResource("12_ddxow")]
 xr_origin = NodePath("../XROrigin3D")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
-environment = SubResource("Environment_7jcoo")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
+environment = SubResource("Environment_3xrav")
+
+[node name="map" type="Node3D" parent="." index="3"]
+
+[node name="tile_cracked_large" parent="map" index="0" instance=ExtResource("13_0m31k")]
+
+[node name="tile_cracked_large2" parent="map" index="1" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="tile_cracked_large3" parent="map" index="2" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="tile_cracked_large7" parent="map" index="3" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+
+[node name="tile_cracked_large8" parent="map" index="4" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00624, 0.0096612, -12.0079)
+
+[node name="tile_cracked_large10" parent="map" index="5" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00624, 0.0096612, -18.0079)
+
+[node name="tile_cracked_large9" parent="map" index="6" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+
+[node name="tile_cracked_large4" parent="map" index="7" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+
+[node name="tile_cracked_large5" parent="map" index="8" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+
+[node name="tile_cracked_large6" parent="map" index="9" instance=ExtResource("13_0m31k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="wallgltf" parent="map" index="10" instance=ExtResource("14_t71pd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -14)
+
+[node name="wallgltf2" parent="map" index="11" instance=ExtResource("14_t71pd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -14)
+
+[node name="wallgltf3" parent="map" index="12" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 1, -9.98507)
+
+[node name="wallgltf4" parent="map" index="13" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 1, -5.98507)
+
+[node name="wallgltf5" parent="map" index="14" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 1, -1.98507)
+
+[node name="wallgltf8" parent="map" index="15" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8, 1, -9.98507)
+
+[node name="wallgltf9" parent="map" index="16" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8, 1, -5.98507)
+
+[node name="wallgltf10" parent="map" index="17" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8, 1, -1.98507)
+
+[node name="wall_gateDoorgltf" parent="map" index="18" instance=ExtResource("15_c4aw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -14)
+
+[node name="wall_gateCornergltf" parent="map" index="19" instance=ExtResource("16_flmvj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -14)
+
+[node name="wall_gateCornergltf2" parent="map" index="20" instance=ExtResource("16_flmvj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 1, -14)
+
+[node name="wallgltf6" parent="map" index="21" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 2)
+
+[node name="wallgltf11" parent="map" index="22" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 1, 2)
+
+[node name="wallgltf7" parent="map" index="23" instance=ExtResource("14_t71pd")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 1, 2)
+
+[node name="wall_gateCornergltf3" parent="map" index="24" instance=ExtResource("16_flmvj")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 8, 1, 2)
+
+[node name="wall_gateCornergltf4" parent="map" index="25" instance=ExtResource("16_flmvj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8, 1, 2)
+
+[node name="Water" type="Area3D" parent="map" index="26"]
+collision_layer = 524289
+collision_mask = 524289
+script = ExtResource("17_e4i0g")
+
+[node name="WaterMesh" type="MeshInstance3D" parent="map/Water" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+layers = 524289
+mesh = SubResource("PlaneMesh_tqsmm")
+skeleton = NodePath("")
+script = ExtResource("19_iaagb")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/Water" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
+shape = SubResource("BoxShape3D_uu5q3")
+
+[node name="torch" parent="." index="4" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(1, 0, 0, 0, 0.794436, -0.607349, 0, 0.607349, 0.794436, -3.96407, 3.73951, -12.883)
+
+[node name="torch2" parent="." index="5" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(1, 0, 0, 0, 0.794436, -0.607349, 0, 0.607349, 0.794436, 0.0359268, 3.73951, -12.883)
+
+[node name="torch3" parent="." index="6" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-4.37114e-08, 0.607376, 0.794415, 0, 0.794415, -0.607376, -1, -2.65493e-08, -3.4725e-08, -7.07995, 3.73951, -9.13896)
+
+[node name="torch4" parent="." index="7" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-4.37114e-08, 0.607376, 0.794415, 0, 0.794415, -0.607376, -1, -2.65493e-08, -3.4725e-08, -7.07995, 3.73951, -5.32661)
+
+[node name="torch5" parent="." index="8" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-4.37114e-08, 0.607376, 0.794415, 0, 0.794415, -0.607376, -0.999999, -2.65493e-08, -3.4725e-08, -7.07995, 3.73951, -1.8032)
+
+[node name="torch6" parent="." index="9" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-1, 5.30985e-08, 6.945e-08, 0, 0.794415, -0.607376, -8.74228e-08, -0.607376, -0.794415, -4.14522, 3.73951, 1.09642)
+
+[node name="torch7" parent="." index="10" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-1, 5.30985e-08, 6.945e-08, 0, 0.794415, -0.607376, -8.74227e-08, -0.607376, -0.794415, -0.0800896, 3.73951, 1.09642)
+
+[node name="torch8" parent="." index="11" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-1, 5.30985e-08, 6.945e-08, 0, 0.794415, -0.607376, -8.74228e-08, -0.607376, -0.794415, 4.46731, 3.73951, 1.09642)
+
+[node name="torch9" parent="." index="12" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-4.37114e-08, -0.607376, -0.794415, 0, 0.794415, -0.607376, 1, -2.65493e-08, -3.4725e-08, 6.90548, 3.67867, -4.25606)
+
+[node name="torch10" parent="." index="13" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(-4.37114e-08, -0.607376, -0.794415, 0, 0.794415, -0.607376, 1, -2.65493e-08, -3.4725e-08, 6.90548, 3.67867, -8.60538)
+
+[node name="torch11" parent="." index="14" instance=ExtResource("20_iqgpb")]
+transform = Transform3D(0.0338006, -0.607002, -0.793982, 3.76773e-08, 0.794436, -0.607349, 0.999428, 0.0205288, 0.0268527, 6.90548, 3.67867, -8.60538)
+
+[connection signal="body_entered" from="map/Water" to="map/Water" method="_on_body_entered"]

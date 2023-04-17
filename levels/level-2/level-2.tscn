@@ -81,15 +81,15 @@ size = Vector2(500, 500)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3jai6"]
 size = Vector3(500, 2, 500)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6wdv0"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_44of2"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_leyfy"]
 seamless = true
 as_normal_map = true
 bump_strength = 1.5
-noise = SubResource("FastNoiseLite_6wdv0")
+noise = SubResource("FastNoiseLite_44of2")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_m8q15"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ylcs6"]
 noise_type = 3
 fractal_type = 2
 
@@ -97,9 +97,9 @@ fractal_type = 2
 seamless = true
 as_normal_map = true
 bump_strength = 1.5
-noise = SubResource("FastNoiseLite_m8q15")
+noise = SubResource("FastNoiseLite_ylcs6")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_1oumy"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ws53n"]
 noise_type = 3
 frequency = 0.001
 fractal_type = 2
@@ -107,9 +107,9 @@ fractal_octaves = 3
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fqu0f"]
 seamless = true
-noise = SubResource("FastNoiseLite_1oumy")
+noise = SubResource("FastNoiseLite_ws53n")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvb3w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lun2c"]
 render_priority = 0
 shader = ExtResource("11_xrcit")
 shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
@@ -136,7 +136,7 @@ shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_ch51q")
 shader_parameter/wave = SubResource("NoiseTexture2D_fqu0f")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_havxl"]
-material = SubResource("ShaderMaterial_pvb3w")
+material = SubResource("ShaderMaterial_lun2c")
 size = Vector2(500, 500)
 subdivide_width = 500
 subdivide_depth = 500

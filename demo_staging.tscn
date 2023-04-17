@@ -7,7 +7,10 @@
 
 [node name="DemoStaging" instance=ExtResource("1")]
 script = ExtResource("2")
-main_scene = "res://levels/level-2/level-2.tscn"
+main_scene = "res://levels/level-1/level-1.tscn"
+
+[node name="XRCamera3D" parent="XROrigin3D" index="0"]
+current = true
 
 [node name="LoadingScreen" parent="." index="3"]
 splash_screen = ExtResource("3_gjnqx")
