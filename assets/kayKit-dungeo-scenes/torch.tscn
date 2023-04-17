@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://bixfn84lot0lp"]
+
+[ext_resource type="PackedScene" uid="uid://b4g4lka4qxqpv" path="res://assets/kayKit-dungeon/torch.gltf.glb" id="1_4kxqo"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqw1b"]
+load_path = "res://.godot/imported/particles_fire.png-bc7f34c1e9e80135d95b3470860e514c.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s2t53"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_xqw1b")
+detail_blend_mode = 3
+texture_filter = 2
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+point_size = 14.0
+proximity_fade_distance = 0.1
+
+[sub_resource type="Gradient" id="Gradient_nxm7v"]
+offsets = PackedFloat32Array(0, 0.118852, 0.52459, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.91, 0.509752, 0.0819, 1, 0.68, 0.2584, 0.2584, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_avhwv"]
+gradient = SubResource("Gradient_nxm7v")
+
+[sub_resource type="Curve" id="Curve_38ao3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.29106, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jfo0o"]
+curve = SubResource("Curve_38ao3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yyp0b"]
+emission_shape = 1
+emission_sphere_radius = 0.02
+gravity = Vector3(0, 1.5, 0)
+angle_min = -720.0
+angle_max = 720.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_jfo0o")
+color = Color(2, 1, 0.5, 1)
+color_ramp = SubResource("GradientTexture1D_avhwv")
+turbulence_noise_strength = 0.52
+turbulence_noise_scale = 4.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_aityf"]
+size = Vector2(0.7, 0.7)
+
+[node name="torch" instance=ExtResource("1_4kxqo")]
+
+[node name="torch" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.264822, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67336, 0.00315087)
+material_override = SubResource("StandardMaterial3D_s2t53")
+lod_bias = 3.486
+gi_mode = 2
+amount = 20
+preprocess = 1.0
+randomness = 1.0
+visibility_aabb = AABB(-1.01366, -1.01043, -1.01819, 2.02823, 2.26622, 2.03074)
+process_material = SubResource("ParticleProcessMaterial_yyp0b")
+draw_pass_1 = SubResource("QuadMesh_aityf")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.679439, 0.00132398)
+light_color = Color(1, 0.482353, 0.239216, 1)
+shadow_enabled = true
+shadow_bias = 0.01

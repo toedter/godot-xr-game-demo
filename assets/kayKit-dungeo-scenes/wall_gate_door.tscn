@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcjyord7aweit"]
+
+[ext_resource type="PackedScene" uid="uid://j7hj3i0i128m" path="res://assets/kayKit-dungeon/wall_gateDoor.gltf.glb" id="1_72fsa"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_r03yg"]
+points = PackedVector3Array(-0.972201, 4, -0.750001, -2, 4, -0.750001, -1, 4, -0.697583, 1.99961, 3.99961, 0.749855, 2, 3.99961, -0.500099, 2, 3.99961, -0.750001, -2, 0, -0.750001, -2, 4, -0.500099, 1.99961, 0, 0.749855, 2, 1.04307, -0.366044, -2, 3.99961, 0.749855, 2, 0, -0.750001, -2, 0, 0.749855, 2, 0, -0.500099, 2, 0.556382, -0.366044)
+
+[node name="wall_gateDoorgltf" instance=ExtResource("1_72fsa")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("ConvexPolygonShape3D_r03yg")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b10yt0hknitre"]
+
+[ext_resource type="PackedScene" uid="uid://kfqhwkjga0u5" path="res://assets/kayKit-dungeon/wall_gateCorner.gltf.glb" id="1_fgroy"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3faje"]
+points = PackedVector3Array(-2.03175, -0.0309505, 0.805133, 0.740599, 4, 1.99062, 0.725148, 3.97753, -0.745008, -2.03175, 4.03095, 0.805133, 0.740599, 0, 1.99062, -1.99501, 0.0224662, -0.745008, 0.725042, 0.0226201, -0.744902, -1.99501, 3.97753, -0.745008, -0.761814, 4.03095, 2.0119, -0.761814, -0.0309505, 2.0119)
+
+[node name="wall_gateCornergltf" instance=ExtResource("1_fgroy")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("ConvexPolygonShape3D_3faje")
