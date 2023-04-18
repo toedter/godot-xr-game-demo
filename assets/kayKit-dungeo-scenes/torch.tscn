@@ -1,15 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://bixfn84lot0lp"]
 
 [ext_resource type="PackedScene" uid="uid://b4g4lka4qxqpv" path="res://assets/kayKit-dungeon/torch.gltf.glb" id="1_4kxqo"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqw1b"]
-load_path = "res://.godot/imported/particles_fire.png-bc7f34c1e9e80135d95b3470860e514c.s3tc.ctex"
+[ext_resource type="Texture2D" uid="uid://c41buhq64a6nx" path="res://assets/particles/particles_fire.png" id="2_l1j2g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s2t53"]
 blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = SubResource("CompressedTexture2D_xqw1b")
+albedo_texture = ExtResource("2_l1j2g")
 detail_blend_mode = 3
 texture_filter = 2
 billboard_mode = 3
