@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cynfgmiviq53j"]
+[gd_scene load_steps=37 format=3 uid="uid://cynfgmiviq53j"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
@@ -10,8 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_1f6fl"]
 [ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="8_ftouv"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
+[ext_resource type="PackedScene" uid="uid://0xlsitpu17r1" path="res://addons/godot-xr-tools/functions/movement_footstep.tscn" id="11_2cb4d"]
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="12_ddxow"]
+[ext_resource type="AudioStream" uid="uid://bmb662sxatgk8" path="res://assets/sounds/jump.wav" id="12_l28rn"]
 [ext_resource type="PackedScene" uid="uid://cd1ifv6lrpdth" path="res://assets/kayKit-dungeo-scenes/tile_cracked_large.tscn" id="13_0m31k"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/audio/surface_audio_type.gd" id="13_j1p44"]
+[ext_resource type="AudioStream" uid="uid://dfhaxl0fgric8" path="res://assets/sounds/steptap.wav" id="14_ikp2p"]
 [ext_resource type="PackedScene" uid="uid://cy4heklmp754q" path="res://assets/kayKit-dungeo-scenes/wall.tscn" id="14_t71pd"]
 [ext_resource type="PackedScene" uid="uid://dcjyord7aweit" path="res://assets/kayKit-dungeo-scenes/wall_gate_door.tscn" id="15_c4aw1"]
 [ext_resource type="PackedScene" uid="uid://b10yt0hknitre" path="res://assets/kayKit-dungeo-scenes/wall_gate_corner.tscn" id="16_flmvj"]
@@ -30,16 +34,23 @@ sun_angle_max = 9.55
 
 [sub_resource type="Sky" id="Sky_quwgn"]
 sky_material = SubResource("ProceduralSkyMaterial_owiww")
-process_mode = 1
 
 [sub_resource type="Environment" id="Environment_3xrav"]
+resource_local_to_scene = true
 background_mode = 2
-background_energy_multiplier = 1.1
 sky = SubResource("Sky_quwgn")
 ambient_light_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 ambient_light_sky_contribution = 0.49
 glow_enabled = true
 glow_intensity = 2.33
+
+[sub_resource type="Resource" id="Resource_3i1dg"]
+script = ExtResource("13_j1p44")
+name = ""
+jump_sound = ExtResource("12_l28rn")
+walk_sounds = Array[AudioStream]([ExtResource("14_ikp2p")])
+walk_pitch_minimum = 0.8
+walk_pitch_maximum = 1.2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6wdv0"]
 
@@ -107,7 +118,10 @@ size = Vector3(500, 1, 500)
 [node name="MainMenuLevel" instance=ExtResource("1")]
 script = ExtResource("2_taoax")
 
-[node name="XROrigin3D" parent="." index="0"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_3xrav")
+
+[node name="XROrigin3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59467, 0)
 
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
@@ -137,11 +151,19 @@ jump_button_action = "ax_button"
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("8")]
 
-[node name="XRSimulator" parent="." index="1" instance=ExtResource("12_ddxow")]
-xr_origin = NodePath("../XROrigin3D")
+[node name="MovementFootstep" parent="XROrigin3D" index="4" instance=ExtResource("11_2cb4d")]
+default_surface_audio_type = SubResource("Resource_3i1dg")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
-environment = SubResource("Environment_3xrav")
+[node name="FootSpatial" type="Node3D" parent="XROrigin3D/MovementFootstep" index="1"]
+
+[node name="PlayerCopy1" type="AudioStreamPlayer3D" parent="XROrigin3D/MovementFootstep/FootSpatial" index="0"]
+
+[node name="PlayerCopy2" type="AudioStreamPlayer3D" parent="XROrigin3D/MovementFootstep/FootSpatial" index="1"]
+
+[node name="PlayerCopy3" type="AudioStreamPlayer3D" parent="XROrigin3D/MovementFootstep/FootSpatial" index="2"]
+
+[node name="XRSimulator" parent="." index="2" instance=ExtResource("12_ddxow")]
+xr_origin = NodePath("../XROrigin3D")
 
 [node name="map" type="Node3D" parent="." index="3"]
 
@@ -266,10 +288,7 @@ transform = Transform3D(-1, 5.30985e-08, 6.945e-08, 0, 0.794415, -0.607376, -8.7
 [node name="torch9" parent="." index="12" instance=ExtResource("20_iqgpb")]
 transform = Transform3D(-4.37114e-08, -0.607376, -0.794415, 0, 0.794415, -0.607376, 1, -2.65493e-08, -3.4725e-08, 6.90548, 3.67867, -4.25606)
 
-[node name="torch10" parent="." index="13" instance=ExtResource("20_iqgpb")]
-transform = Transform3D(-4.37114e-08, -0.607376, -0.794415, 0, 0.794415, -0.607376, 1, -2.65493e-08, -3.4725e-08, 6.90548, 3.67867, -8.60538)
-
-[node name="torch11" parent="." index="14" instance=ExtResource("20_iqgpb")]
+[node name="torch11" parent="." index="13" instance=ExtResource("20_iqgpb")]
 transform = Transform3D(0.0338006, -0.607002, -0.793982, 3.76773e-08, 0.794436, -0.607349, 0.999428, 0.0205288, 0.0268527, 6.90548, 3.67867, -8.60538)
 
 [connection signal="body_entered" from="map/Water" to="map/Water" method="_on_body_entered"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bixfn84lot0lp"]
+[gd_scene load_steps=11 format=3 uid="uid://bixfn84lot0lp"]
 
 [ext_resource type="PackedScene" uid="uid://b4g4lka4qxqpv" path="res://assets/kayKit-dungeon/torch.gltf.glb" id="1_4kxqo"]
 [ext_resource type="Texture2D" uid="uid://c41buhq64a6nx" path="res://assets/particles/particles_fire.png" id="2_l1j2g"]
+[ext_resource type="Script" path="res://assets/kayKit-dungeo-scenes/TorchLight.gd" id="3_qtmq0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s2t53"]
 blend_mode = 1
@@ -64,8 +65,9 @@ visibility_aabb = AABB(-1.01366, -1.01043, -1.01819, 2.02823, 2.26622, 2.03074)
 process_material = SubResource("ParticleProcessMaterial_yyp0b")
 draw_pass_1 = SubResource("QuadMesh_aityf")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
+[node name="TorchLight" type="OmniLight3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.679439, 0.00132398)
 light_color = Color(1, 0.482353, 0.239216, 1)
 shadow_enabled = true
 shadow_bias = 0.01
+script = ExtResource("3_qtmq0")
