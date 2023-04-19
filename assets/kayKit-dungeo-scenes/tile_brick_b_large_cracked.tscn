@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckjhh8lgthecr"]
+
+[ext_resource type="PackedScene" uid="uid://bpxd80hfq6ry0" path="res://assets/kayKit-dungeon/tileBrickB_largeCrackedB.gltf.glb" id="1_jmw73"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xqfig"]
+points = PackedVector3Array(-0.380654, 1.47604, -1.23778, -2.85767, -1.11022e-16, -2.85767, -2.85767, -1.11022e-16, 2.85767, 2.85711, 1.11022e-16, 2.85711, 2.85711, -1.11022e-16, -2.85711, 2.95216, 1.09501, 2.95158, -2.95216, 1.09516, 2.95158, 2.95216, 1.09501, -2.95158, -2.95216, 1.09516, -2.95158, 1.61867, 1.3809, 0.952045, -1.33289, 1.38075, 1.42807, 2.96823, 0.992482, 2.96823, -2.96823, 0.992482, -2.96823, -1.52321, 1.38075, 1.14234, -0.380654, 1.47604, -1.42807, 2.96823, 0.992482, -2.96823, -2.96823, 0.992482, 2.96823, -0.476116, 1.47604, -1.23778, 1.61867, 1.3809, 0.856602, -1.23802, 1.38075, 1.42807, -1.52321, 1.38075, 1.23778)
+
+[node name="tileBrickB_largeCrackedBgltf" instance=ExtResource("1_jmw73")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("ConvexPolygonShape3D_xqfig")
