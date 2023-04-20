@@ -11,12 +11,10 @@ var direction = 1
 func _ready():
 	randomize()
 	value = randf()
-	print(value)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	light_energy = value
 		
 	value += (randf() / 30 * direction);
@@ -24,5 +22,4 @@ func _process(delta):
 		direction = -1;
 	if value < 0.9:
 		direction = 1;
-	
 	

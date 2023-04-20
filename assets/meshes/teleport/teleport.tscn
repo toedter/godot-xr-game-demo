@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://3a6wjr3a13vd"]
 
 [ext_resource type="Script" path="res://assets/meshes/teleport/teleport.gd" id="1_mkuv0"]
-[ext_resource type="Material" path="res://assets/meshes/teleport/teleport_body_material.tres" id="2_0kehv"]
+[ext_resource type="Material" uid="uid://baig15s0tnyra" path="res://assets/meshes/teleport/teleport_body_material.tres" id="2_0kehv"]
 [ext_resource type="Material" uid="uid://c26e12f2whdrj" path="res://assets/meshes/teleport/teleport_title_material.tres" id="3_sl3q4"]
 [ext_resource type="Material" uid="uid://d4nr1joloeff8" path="res://assets/meshes/teleport/teleport_area_shader.tres" id="4_2bbe5"]
 

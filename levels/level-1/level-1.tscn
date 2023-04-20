@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cynfgmiviq53j"]
+[gd_scene load_steps=42 format=3 uid="uid://cynfgmiviq53j"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
@@ -26,6 +26,8 @@
 [ext_resource type="PackedScene" uid="uid://ba5i643tmtsj4" path="res://assets/kayKit-dungeo-scenes/torch_wall.tscn" id="25_0amys"]
 [ext_resource type="PackedScene" uid="uid://bt65le65ucux0" path="res://assets/kayKit-dungeo-scenes/pillar.tscn" id="25_s4j5s"]
 [ext_resource type="PackedScene" uid="uid://3bsyhd7ehoa1" path="res://assets/settings/settings_ui.tscn" id="26_uvbqv"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="27_3nfg6"]
+[ext_resource type="PackedScene" uid="uid://cfxrekgcjilon" path="res://assets/kayKit-scenes/large_barrier.tscn" id="28_ck3ml"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_owiww"]
 sky_top_color = Color(0.0627451, 0.0823529, 0.113725, 1)
@@ -336,5 +338,22 @@ spot_angle = 20.0
 
 [node name="SettingsUI" parent="." index="6" instance=ExtResource("26_uvbqv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101032, 0.970721, -4.52821)
+
+[node name="Teleport" parent="." index="7" instance=ExtResource("27_3nfg6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.27403, 1.01833, -18.0019)
+scene_base = NodePath("..")
+scene = "res://levels/level-2/level-2.tscn"
+active = true
+active_beam_color = Color(0, 0, 0.952941, 1)
+inactive_beam_color = Color(0.968627, 0, 0, 1)
+
+[node name="Large Barrier" parent="." index="8" instance=ExtResource("28_ck3ml")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00097, 0.989191, -20.9073)
+
+[node name="Large Barrier2" parent="." index="9" instance=ExtResource("28_ck3ml")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.10933, 1.00581, -17.7438)
+
+[node name="Large Barrier3" parent="." index="10" instance=ExtResource("28_ck3ml")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.89243, 1.00581, -17.7438)
 
 [connection signal="body_entered" from="map/Water" to="map/Water" method="_on_body_entered"]
