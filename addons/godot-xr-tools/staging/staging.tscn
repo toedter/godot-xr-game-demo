@@ -13,7 +13,7 @@ size = Vector2(2, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_snlak"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/alpha = 0.0
+shader_parameter/alpha = null
 
 [sub_resource type="Sky" id="1"]
 
@@ -23,6 +23,7 @@ sky = SubResource("1")
 
 [node name="Staging" type="Node3D"]
 script = ExtResource("1")
+main_scene = ""
 
 [node name="Fade" type="MeshInstance3D" parent="."]
 mesh = SubResource("4")
@@ -34,7 +35,6 @@ environment = SubResource("2")
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
-current = true
 
 [node name="VRCommonShaderCache" parent="XROrigin3D/XRCamera3D" instance=ExtResource("5")]
 
@@ -52,6 +52,7 @@ progress = 0.0
 [node name="Scene" type="Node3D" parent="."]
 
 [node name="StartXR" parent="." instance=ExtResource("6_balvx")]
+physics_rate_multiplier = 1
 
 [connection signal="xr_ended" from="StartXR" to="." method="_on_StartXR_xr_ended"]
 [connection signal="xr_started" from="StartXR" to="." method="_on_StartXR_xr_started"]

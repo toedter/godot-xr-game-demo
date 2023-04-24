@@ -123,7 +123,6 @@ size = Vector3(500, 1, 500)
 
 [node name="MainMenuLevel" instance=ExtResource("1")]
 script = ExtResource("2_taoax")
-environment = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
 environment = SubResource("Environment_3xrav")
@@ -138,7 +137,6 @@ current = true
 visible = false
 
 [node name="MovementDirect" parent="XROrigin3D/LeftHand" index="1" instance=ExtResource("6")]
-max_speed = 3.0
 strafe = true
 
 [node name="LeftHand" parent="XROrigin3D/LeftHand" index="2" instance=ExtResource("8_u8jpa")]
@@ -147,7 +145,6 @@ hand_material_override = ExtResource("4_lkqix")
 [node name="FunctionPoseDetector" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("5_xgcrx")]
 
 [node name="MovementDirect" parent="XROrigin3D/RightHand" index="1" instance=ExtResource("6")]
-max_speed = 3.0
 
 [node name="MovementTurn" parent="XROrigin3D/RightHand" index="2" instance=ExtResource("5")]
 
