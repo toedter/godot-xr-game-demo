@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bnqnnnet4dw12" path="res://addons/godot-xr-tools/staging/staging.tscn" id="1"]
 [ext_resource type="Script" path="res://demo_staging.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://0wtux0815ks6" path="res://assets/splash/godot-splash.png" id="3_gjnqx"]
+[ext_resource type="Texture2D" uid="uid://ds7ohrdvcai57" path="res://assets/splash/godot-splash.png" id="3_gjnqx"]
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="4_884rb"]
 
 [node name="DemoStaging" instance=ExtResource("1")]

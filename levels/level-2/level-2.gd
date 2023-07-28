@@ -13,6 +13,8 @@ func _ready():
 	super()
 	teleport.active = false;
 	
+	var scene = get_tree().current_scene
+	
 	for child in get_all_children(get_tree().current_scene):
 		if child.get_script():
 			print(child.get_script().get_path())
