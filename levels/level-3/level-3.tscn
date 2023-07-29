@@ -1,0 +1,114 @@
+[gd_scene load_steps=26 format=3 uid="uid://onlvutnneeuj"]
+
+[ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_771nf"]
+[ext_resource type="Script" path="res://levels/level-3/level-3.gd" id="2_kl1hk"]
+[ext_resource type="PackedScene" uid="uid://bft3xyxs31ci3" path="res://addons/godot-xr-tools/functions/function_pose_detector.tscn" id="3_n1hlq"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="4_kmqp2"]
+[ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="5_fn01k"]
+[ext_resource type="Material" uid="uid://dy4ya7w0k18ds" path="res://addons/godot-xr-tools/hands/materials/glove_caucasian_dark_camo.material" id="6_ijk3m"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_io3m0"]
+[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_tfnqh"]
+[ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="9_kucnf"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="10_35efb"]
+[ext_resource type="PackedScene" uid="uid://0xlsitpu17r1" path="res://addons/godot-xr-tools/functions/movement_footstep.tscn" id="11_l516a"]
+[ext_resource type="AudioStream" uid="uid://bmb662sxatgk8" path="res://assets/sounds/jump.wav" id="12_7sxms"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/audio/surface_audio_type.gd" id="13_dvvyn"]
+[ext_resource type="AudioStream" uid="uid://dfhaxl0fgric8" path="res://assets/sounds/steptap.wav" id="14_cc1kb"]
+[ext_resource type="PackedScene" uid="uid://cvokcudrffkgc" path="res://addons/godot-xr-tools/functions/movement_glide.tscn" id="15_7w6fd"]
+[ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_wgfa7"]
+[ext_resource type="Terrain3DStorage" uid="uid://lalq1xnmbjdl" path="res://assets/terrain/terrain_storage.res" id="16_mswfj"]
+[ext_resource type="Texture2D" uid="uid://dc8l8oe1uds5b" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="17_rc5ob"]
+[ext_resource type="PackedScene" uid="uid://cd1ifv6lrpdth" path="res://assets/kayKit-dungeo-scenes/tile_cracked_large.tscn" id="18_vqrwn"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="19_2v6f5"]
+[ext_resource type="Texture2D" uid="uid://ce628mpvcp11s" path="res://assets/teleport/back-level.png" id="20_7ckrg"]
+
+[sub_resource type="Resource" id="Resource_3i1dg"]
+script = ExtResource("13_dvvyn")
+name = ""
+jump_sound = ExtResource("12_7sxms")
+walk_sounds = Array[AudioStream]([ExtResource("14_cc1kb")])
+walk_pitch_minimum = 0.8
+walk_pitch_maximum = 1.2
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_w03ts"]
+panorama = ExtResource("17_rc5ob")
+
+[sub_resource type="Sky" id="Sky_vkpoi"]
+sky_material = SubResource("PanoramaSkyMaterial_w03ts")
+
+[sub_resource type="Environment" id="Environment_qrenk"]
+background_mode = 2
+sky = SubResource("Sky_vkpoi")
+
+[node name="TerrainLevel" instance=ExtResource("1_771nf")]
+script = ExtResource("2_kl1hk")
+
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.9178, 387.002, 63.7193)
+
+[node name="XRCamera3D" parent="XROrigin3D" index="0"]
+current = true
+far = 4000.0
+
+[node name="FunctionPoseDetector" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("3_n1hlq")]
+visible = false
+
+[node name="MovementDirect" parent="XROrigin3D/LeftHand" index="1" instance=ExtResource("4_kmqp2")]
+strafe = true
+
+[node name="LeftHand" parent="XROrigin3D/LeftHand" index="2" instance=ExtResource("5_fn01k")]
+hand_material_override = ExtResource("6_ijk3m")
+
+[node name="FunctionPoseDetector" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("3_n1hlq")]
+
+[node name="MovementDirect" parent="XROrigin3D/RightHand" index="1" instance=ExtResource("4_kmqp2")]
+
+[node name="MovementTurn" parent="XROrigin3D/RightHand" index="2" instance=ExtResource("7_io3m0")]
+
+[node name="MovementJump" parent="XROrigin3D/RightHand" index="3" instance=ExtResource("8_tfnqh")]
+jump_button_action = "ax_button"
+
+[node name="RightHand" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("9_kucnf")]
+
+[node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("10_35efb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.121338, -2.01385, -0.464767)
+
+[node name="MovementFootstep" parent="XROrigin3D" index="4" instance=ExtResource("11_l516a")]
+default_surface_audio_type = SubResource("Resource_3i1dg")
+
+[node name="FootSpatial" type="Node3D" parent="XROrigin3D/MovementFootstep" index="1"]
+
+[node name="PlayerCopy1" type="AudioStreamPlayer3D" parent="XROrigin3D/MovementFootstep/FootSpatial" index="0"]
+
+[node name="PlayerCopy2" type="AudioStreamPlayer3D" parent="XROrigin3D/MovementFootstep/FootSpatial" index="1"]
+transform = Transform3D(0.688544, -0.725194, 0, 0.725194, 0.688544, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="PlayerCopy3" type="AudioStreamPlayer3D" parent="XROrigin3D/MovementFootstep/FootSpatial" index="2"]
+
+[node name="MovementGlide" parent="XROrigin3D" index="5" instance=ExtResource("15_7w6fd")]
+glide_forward_speed = 10.0
+turn_with_roll = true
+
+[node name="XRSimulator" parent="." index="1" instance=ExtResource("15_wgfa7")]
+xr_origin = NodePath("../XROrigin3D")
+
+[node name="map" type="Node3D" parent="." index="2"]
+
+[node name="Terrain3D" type="Terrain3D" parent="map" index="0"]
+storage = ExtResource("16_mswfj")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82907, 0, 0)
+
+[node name="tile_cracked_large10" parent="map" index="1" instance=ExtResource("18_vqrwn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.9283, 384.692, 63.4763)
+
+[node name="Teleport" parent="map" index="2" instance=ExtResource("19_2v6f5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -197.576, 99.4638, -357.66)
+scene_base = NodePath("../..")
+scene = "res://levels/level-1/level-1.tscn"
+title = ExtResource("20_7ckrg")
+active = true
+active_beam_color = Color(0, 0, 0.952941, 1)
+inactive_beam_color = Color(0.968627, 0, 0, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
+environment = SubResource("Environment_qrenk")

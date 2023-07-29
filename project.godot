@@ -26,7 +26,11 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg", "res://addons/terrain_3d/editor/plugin.cfg")
+
+[godot_xr_tools]
+
+player/standard_height=1.8
 
 [rendering]
 

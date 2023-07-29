@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cxnu4wp4tbgaq"]
+[gd_scene load_steps=55 format=3 uid="uid://cxnu4wp4tbgaq"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" path="res://assets/platformer-scenes/moving_platform2.gd" id="34_i460j"]
 [ext_resource type="PackedScene" uid="uid://dk87rfw3mqnps" path="res://assets/platformer-scenes/moving_platform.tscn" id="34_ulvs7"]
 [ext_resource type="PackedScene" uid="uid://b217p51yaogct" path="res://assets/platformer-scenes/moving_platform2.tscn" id="35_knptu"]
+[ext_resource type="Texture2D" uid="uid://ce628mpvcp11s" path="res://assets/teleport/back-level.png" id="37_m3wga"]
 
 [sub_resource type="Resource" id="Resource_qqcj5"]
 script = ExtResource("11_qur3a")
@@ -60,12 +61,12 @@ walk_pitch_maximum = 1.2
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2buop"]
 panorama = ExtResource("19_npbdg")
 
-[sub_resource type="Sky" id="Sky_vkpoi"]
+[sub_resource type="Sky" id="Sky_58di3"]
 sky_material = SubResource("PanoramaSkyMaterial_2buop")
 
 [sub_resource type="Environment" id="Environment_t0rgm"]
 background_mode = 2
-sky = SubResource("Sky_vkpoi")
+sky = SubResource("Sky_58di3")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8xog"]
 albedo_texture = ExtResource("23_ufkwu")
@@ -416,6 +417,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0108714, 9.94736, 6.02747)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2876, 1.00889, 40.2082)
 scene_base = NodePath("..")
 scene = "res://levels/level-1/level-1.tscn"
+title = ExtResource("37_m3wga")
 active_beam_color = Color(0, 0, 0.952941, 1)
 inactive_beam_color = Color(0.968627, 0, 0, 1)
 
