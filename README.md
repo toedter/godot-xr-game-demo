@@ -2,7 +2,9 @@
 
 This is a Godot XR game demo to get some experience with Godot 4 and XR.
 
+![dungeon-demo.jpg](dungeon-demo.jpg)
 ![godot-xr-game-demo.jpg](godot-xr-game-demo.jpg)
+![terrain-demo.jpg](terrain-demo.jpg)
 
 ## Acknowledgements
 

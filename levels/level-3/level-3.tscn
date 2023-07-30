@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://onlvutnneeuj"]
+[gd_scene load_steps=37 format=3 uid="uid://onlvutnneeuj"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_771nf"]
 [ext_resource type="Script" path="res://levels/level-3/level-3.gd" id="2_kl1hk"]
@@ -16,11 +16,13 @@
 [ext_resource type="AudioStream" uid="uid://dfhaxl0fgric8" path="res://assets/sounds/steptap.wav" id="14_cc1kb"]
 [ext_resource type="PackedScene" uid="uid://cvokcudrffkgc" path="res://addons/godot-xr-tools/functions/movement_glide.tscn" id="15_7w6fd"]
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_wgfa7"]
-[ext_resource type="Terrain3DStorage" uid="uid://lalq1xnmbjdl" path="res://assets/terrain/terrain_storage.res" id="16_mswfj"]
 [ext_resource type="Texture2D" uid="uid://dc8l8oe1uds5b" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="17_rc5ob"]
-[ext_resource type="PackedScene" uid="uid://cd1ifv6lrpdth" path="res://assets/kayKit-dungeo-scenes/tile_cracked_large.tscn" id="18_vqrwn"]
-[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="19_2v6f5"]
-[ext_resource type="Texture2D" uid="uid://ce628mpvcp11s" path="res://assets/teleport/back-level.png" id="20_7ckrg"]
+[ext_resource type="Terrain3DStorage" uid="uid://bld0r1f3cfohs" path="res://levels/level-3/terrain_storage.res" id="19_4bcbn"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="24_mbnyg"]
+[ext_resource type="Script" path="res://levels/level-2/Water.gd" id="24_wpk6t"]
+[ext_resource type="Shader" path="res://assets/water/water.gdshader" id="25_e2eca"]
+[ext_resource type="Texture2D" uid="uid://ce628mpvcp11s" path="res://assets/teleport/back-level.png" id="25_qes1d"]
+[ext_resource type="Script" path="res://levels/level-2/WaterMesh.gd" id="26_kvst3"]
 
 [sub_resource type="Resource" id="Resource_3i1dg"]
 script = ExtResource("13_dvvyn")
@@ -29,6 +31,69 @@ jump_sound = ExtResource("12_7sxms")
 walk_sounds = Array[AudioStream]([ExtResource("14_cc1kb")])
 walk_pitch_minimum = 0.8
 walk_pitch_maximum = 1.2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_44of2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pbwfe"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_44of2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ylcs6"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fp0oc"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_ylcs6")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ws53n"]
+noise_type = 3
+frequency = 0.001
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4u0as"]
+seamless = true
+noise = SubResource("FastNoiseLite_ws53n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lun2c"]
+render_priority = 0
+shader = ExtResource("25_e2eca")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
+shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_time = 0.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_2_direction = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.2
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 0.15
+shader_parameter/beers_law = 0.089
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.0
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(1, 0.895131, 0.760999, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_pbwfe")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_fp0oc")
+shader_parameter/wave = SubResource("NoiseTexture2D_4u0as")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pv2pf"]
+material = SubResource("ShaderMaterial_lun2c")
+size = Vector2(5000, 5000)
+subdivide_width = 500
+subdivide_depth = 500
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hh3if"]
+size = Vector3(500, 1, 500)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_w03ts"]
 panorama = ExtResource("17_rc5ob")
@@ -44,7 +109,7 @@ sky = SubResource("Sky_vkpoi")
 script = ExtResource("2_kl1hk")
 
 [node name="XROrigin3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.9178, 387.002, 63.7193)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 194.09, 8.93182, 78.1609)
 
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
 current = true
@@ -95,20 +160,35 @@ xr_origin = NodePath("../XROrigin3D")
 [node name="map" type="Node3D" parent="." index="2"]
 
 [node name="Terrain3D" type="Terrain3D" parent="map" index="0"]
-storage = ExtResource("16_mswfj")
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82907, 0, 0)
+storage = ExtResource("19_4bcbn")
 
-[node name="tile_cracked_large10" parent="map" index="1" instance=ExtResource("18_vqrwn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.9283, 384.692, 63.4763)
+[node name="Water" type="Area3D" parent="map" index="1"]
+collision_layer = 524289
+collision_mask = 524289
+script = ExtResource("24_wpk6t")
 
-[node name="Teleport" parent="map" index="2" instance=ExtResource("19_2v6f5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -197.576, 99.4638, -357.66)
+[node name="WaterMesh" type="MeshInstance3D" parent="map/Water" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+layers = 524289
+mesh = SubResource("PlaneMesh_pv2pf")
+skeleton = NodePath("")
+script = ExtResource("26_kvst3")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/Water" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
+shape = SubResource("BoxShape3D_hh3if")
+
+[node name="Teleport" parent="map" index="2" instance=ExtResource("24_mbnyg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 198.069, 8.59487, 82.6376)
 scene_base = NodePath("../..")
 scene = "res://levels/level-1/level-1.tscn"
-title = ExtResource("20_7ckrg")
+title = ExtResource("25_qes1d")
 active = true
 active_beam_color = Color(0, 0, 0.952941, 1)
 inactive_beam_color = Color(0.968627, 0, 0, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
 environment = SubResource("Environment_qrenk")
+
+[connection signal="body_entered" from="map/Water" to="map/Water" method="_on_body_entered"]
