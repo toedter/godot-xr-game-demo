@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_1f6fl"]
-[ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="8_ftouv"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
+[ext_resource type="PackedScene" uid="uid://bysy6577cvpe0" path="res://levels/level-1/right_hand_poke.tscn" id="9_g7f61"]
 [ext_resource type="PackedScene" uid="uid://0xlsitpu17r1" path="res://addons/godot-xr-tools/functions/movement_footstep.tscn" id="11_2cb4d"]
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="12_ddxow"]
 [ext_resource type="AudioStream" uid="uid://bmb662sxatgk8" path="res://assets/sounds/jump.wav" id="12_l28rn"]
@@ -153,7 +153,7 @@ hand_material_override = ExtResource("4_lkqix")
 [node name="MovementJump" parent="XROrigin3D/RightHand" index="3" instance=ExtResource("8_1f6fl")]
 jump_button_action = "ax_button"
 
-[node name="RightHand" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("8_ftouv")]
+[node name="RightHand" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("9_g7f61")]
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("8")]
 
@@ -318,14 +318,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.5666, -8)
 [node name="pillargltf8" parent="map" index="43" instance=ExtResource("25_s4j5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.5666, -8)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="4"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="map" index="44"]
 transform = Transform3D(1, 0, 0, 0, -0.101056, 0.994881, 0, -0.994881, -0.101056, 0, 8.62268, 0)
 light_color = Color(0.792157, 0.847059, 1, 1)
 light_energy = 0.15
 shadow_enabled = true
 directional_shadow_pancake_size = 1.0
 
-[node name="SpotLight3D" type="SpotLight3D" parent="." index="5"]
+[node name="SpotLight3D" type="SpotLight3D" parent="map" index="45"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.00013192, 8.60327, -4.68673)
 visible = false
 light_energy = 8.567
@@ -335,34 +335,34 @@ shadow_enabled = true
 spot_range = 10.0
 spot_angle = 20.0
 
-[node name="SettingsUI" parent="." index="6" instance=ExtResource("26_uvbqv")]
+[node name="SettingsUI" parent="map" index="46" instance=ExtResource("26_uvbqv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101032, 0.970721, -4.52821)
 
-[node name="Teleport (Platform)" parent="." index="7" instance=ExtResource("27_3nfg6")]
+[node name="Teleport (Platform)" parent="map" index="47" instance=ExtResource("27_3nfg6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.55305, 1.01833, -19.3699)
-scene_base = NodePath("..")
+scene_base = NodePath("../..")
 scene = "res://levels/level-2/level-2.tscn"
 title = ExtResource("28_78v5d")
 active = true
 active_beam_color = Color(0, 0, 0.952941, 1)
 inactive_beam_color = Color(0.968627, 0, 0, 1)
 
-[node name="Teleport (Terrain)" parent="." index="8" instance=ExtResource("27_3nfg6")]
+[node name="Teleport (Terrain)" parent="map" index="48" instance=ExtResource("27_3nfg6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.19897, 1.01833, -19.3699)
-scene_base = NodePath("..")
+scene_base = NodePath("../..")
 scene = "res://levels/level-3/level-3.tscn"
 title = ExtResource("29_0p8ex")
 active = true
 active_beam_color = Color(0, 0, 0.952941, 1)
 inactive_beam_color = Color(0.968627, 0, 0, 1)
 
-[node name="Large Barrier" parent="." index="9" instance=ExtResource("28_ck3ml")]
+[node name="Large Barrier" parent="map" index="49" instance=ExtResource("28_ck3ml")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00097, 0.989191, -20.9073)
 
-[node name="Large Barrier2" parent="." index="10" instance=ExtResource("28_ck3ml")]
+[node name="Large Barrier2" parent="map" index="50" instance=ExtResource("28_ck3ml")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.10933, 1.00581, -17.7438)
 
-[node name="Large Barrier3" parent="." index="11" instance=ExtResource("28_ck3ml")]
+[node name="Large Barrier3" parent="map" index="51" instance=ExtResource("28_ck3ml")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.89243, 1.00581, -17.7438)
 
 [connection signal="body_entered" from="map/Water" to="map/Water" method="_on_body_entered"]

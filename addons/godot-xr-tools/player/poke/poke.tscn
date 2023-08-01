@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://7wbbvixoh50w"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/player/poke/poke.gd" id="1"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/player/poke/poke_body.gd" id="2"]
@@ -13,6 +13,11 @@ radius = 0.005
 height = 0.01
 radial_segments = 32
 rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flf48"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.8, 0.8, 1, 0.5)
 
 [node name="Poke" type="Node3D"]
 script = ExtResource("1")
@@ -33,6 +38,7 @@ shape = SubResource("1")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="PokeBody"]
 mesh = SubResource("2")
+surface_material_override/0 = SubResource("StandardMaterial3D_flf48")
 
 [connection signal="body_entered" from="PokeBody" to="." method="_on_PokeBody_body_entered"]
 [connection signal="body_exited" from="PokeBody" to="." method="_on_PokeBody_body_exited"]
