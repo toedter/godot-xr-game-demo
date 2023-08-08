@@ -154,6 +154,7 @@ hand_material_override = ExtResource("4_lkqix")
 jump_button_action = "ax_button"
 
 [node name="RightHand" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("9_g7f61")]
+hand_material_override = ExtResource("4_lkqix")
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("8")]
 
