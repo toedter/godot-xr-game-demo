@@ -8,34 +8,34 @@
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/hand_physics_bone.gd" id="5"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/physics_hand.gd" id="6"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nkosi"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bb14c"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jwb8o"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rndqk"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_hkeom"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_jx0hv"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Little_Distal_R", "Armature/Skeleton3D:Little_Intermediate_R", "Armature/Skeleton3D:Little_Metacarpal_R", "Armature/Skeleton3D:Little_Proximal_R", "Armature/Skeleton3D:Middle_Distal_R", "Armature/Skeleton3D:Middle_Intermediate_R", "Armature/Skeleton3D:Middle_Metacarpal_R", "Armature/Skeleton3D:Middle_Proximal_R", "Armature/Skeleton3D:Ring_Distal_R", "Armature/Skeleton3D:Ring_Intermediate_R", "Armature/Skeleton3D:Ring_Metacarpal_R", "Armature/Skeleton3D:Ring_Proximal_R", "Armature/Skeleton3D:Thumb_Distal_R", "Armature/Skeleton3D:Thumb_Metacarpal_R", "Armature/Skeleton3D:Thumb_Proximal_R", "Armature/Skeleton:Little_Distal_R", "Armature/Skeleton:Little_Intermediate_R", "Armature/Skeleton:Little_Proximal_R", "Armature/Skeleton:Middle_Distal_R", "Armature/Skeleton:Middle_Intermediate_R", "Armature/Skeleton:Middle_Proximal_R", "Armature/Skeleton:Ring_Distal_R", "Armature/Skeleton:Ring_Intermediate_R", "Armature/Skeleton:Ring_Proximal_R", "Armature/Skeleton:Thumb_Distal_R", "Armature/Skeleton:Thumb_Proximal_R"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qjelr"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fcwa0"]
 animation = &"Grip 5"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_5sj6d"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_c2nit"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Index_Distal_R", "Armature/Skeleton3D:Index_Intermediate_R", "Armature/Skeleton3D:Index_Metacarpal_R", "Armature/Skeleton3D:Index_Proximal_R", "Armature/Skeleton:Index_Distal_R", "Armature/Skeleton:Index_Intermediate_R", "Armature/Skeleton:Index_Proximal_R"]
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_fhriv"]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_chyw3"]
 graph_offset = Vector2(-552.664, 107.301)
-nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_nkosi")
+nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_bb14c")
 nodes/ClosedHand1/position = Vector2(-600, 300)
-nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_jwb8o")
+nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_rndqk")
 nodes/ClosedHand2/position = Vector2(-360, 300)
-nodes/Grip/node = SubResource("AnimationNodeBlend2_hkeom")
+nodes/Grip/node = SubResource("AnimationNodeBlend2_jx0hv")
 nodes/Grip/position = Vector2(0, 40)
-nodes/OpenHand/node = SubResource("AnimationNodeAnimation_qjelr")
+nodes/OpenHand/node = SubResource("AnimationNodeAnimation_fcwa0")
 nodes/OpenHand/position = Vector2(-600, 100)
-nodes/Trigger/node = SubResource("AnimationNodeBlend2_5sj6d")
+nodes/Trigger/node = SubResource("AnimationNodeBlend2_c2nit")
 nodes/Trigger/position = Vector2(-360, 40)
 node_connections = [&"output", 0, &"Grip", &"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigger", 0, &"OpenHand", &"Trigger", 1, &"ClosedHand1"]
 
@@ -218,7 +218,7 @@ length = 0.015
 [node name="AnimationPlayer" parent="Hand_Glove_R" instance=ExtResource("1")]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendTree_fhriv")
+tree_root = SubResource("AnimationNodeBlendTree_chyw3")
 anim_player = NodePath("../Hand_Glove_R/AnimationPlayer")
 active = true
 parameters/Grip/blend_amount = 0

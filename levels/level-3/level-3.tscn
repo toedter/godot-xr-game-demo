@@ -1,9 +1,8 @@
-[gd_scene load_steps=38 format=3 uid="uid://onlvutnneeuj"]
+[gd_scene load_steps=37 format=3 uid="uid://onlvutnneeuj"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_771nf"]
 [ext_resource type="Script" path="res://levels/level-3/level-3.gd" id="2_kl1hk"]
 [ext_resource type="PackedScene" uid="uid://bft3xyxs31ci3" path="res://addons/godot-xr-tools/functions/function_pose_detector.tscn" id="3_n1hlq"]
-[ext_resource type="Environment" uid="uid://dgn71lyu6gn5r" path="res://default_env.tres" id="3_rte0x"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="4_kmqp2"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="5_fn01k"]
 [ext_resource type="Material" uid="uid://dy4ya7w0k18ds" path="res://addons/godot-xr-tools/hands/materials/glove_caucasian_dark_camo.material" id="6_ijk3m"]
@@ -108,7 +107,6 @@ sky = SubResource("Sky_vkpoi")
 
 [node name="TerrainLevel" instance=ExtResource("1_771nf")]
 script = ExtResource("2_kl1hk")
-environment = ExtResource("3_rte0x")
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 194.09, 8.93182, 78.1609)
