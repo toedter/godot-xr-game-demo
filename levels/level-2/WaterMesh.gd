@@ -30,4 +30,3 @@ func get_height(world_position: Vector3) -> float:
 
 	var pixel_pos = Vector2(uv_x * noise.get_width(), uv_y * noise.get_height())
 	return global_position.y + noise.get_pixelv(pixel_pos).r * height_scale;
-

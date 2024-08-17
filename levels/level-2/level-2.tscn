@@ -137,6 +137,7 @@ shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_ch51q")
 shader_parameter/wave = SubResource("NoiseTexture2D_fqu0f")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_havxl"]
+lightmap_size_hint = Vector2i(2502, 2502)
 material = SubResource("ShaderMaterial_lun2c")
 size = Vector2(500, 500)
 subdivide_width = 500

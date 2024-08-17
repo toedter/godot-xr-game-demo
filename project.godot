@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Godot-XR-Game"
 run/main_scene="res://demo_staging.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -26,7 +26,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/terrain_3d/editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg", "res://addons/terrain_3d/editor/plugin.cfg")
 
 [godot_xr_tools]
 

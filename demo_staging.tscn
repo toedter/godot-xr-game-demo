@@ -12,11 +12,11 @@ main_scene = "res://levels/level-1/level-1.tscn"
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
 current = true
 
-[node name="LoadingScreen" parent="." index="3"]
+[node name="LoadingScreen" parent="." index="2"]
 splash_screen = ExtResource("3_gjnqx")
 enable_press_to_continue = true
 
-[node name="XRSimulator" parent="." index="6" instance=ExtResource("4_884rb")]
+[node name="XRSimulator" parent="." index="5" instance=ExtResource("4_884rb")]
 xr_origin = NodePath("../XROrigin3D")
 
 [connection signal="scene_exiting" from="." to="." method="_on_Staging_scene_exiting"]
