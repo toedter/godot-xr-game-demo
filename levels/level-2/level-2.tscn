@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cxnu4wp4tbgaq"]
+[gd_scene load_steps=48 format=3 uid="uid://cxnu4wp4tbgaq"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-2/level-2.gd" id="2_4j61s"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="8_ftouv"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/overrides/ground_physics_settings.gd" id="11_qur3a"]
-[ext_resource type="Shader" path="res://assets/water/water.gdshader" id="11_xrcit"]
 [ext_resource type="Script" path="res://levels/level-2/Water.gd" id="12_cffbp"]
 [ext_resource type="PackedScene" uid="uid://0xlsitpu17r1" path="res://addons/godot-xr-tools/functions/movement_footstep.tscn" id="13_4mhug"]
 [ext_resource type="PackedScene" uid="uid://dvvem4g7ivur2" path="res://assets/kayKit-scenes/large_tile_forest.tscn" id="13_x1ddo"]
@@ -30,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://67eaj4jgfgyj" path="res://assets/materials/rocky_trail_nor_gl_4k.jpg" id="24_2ytqa"]
 [ext_resource type="Texture2D" uid="uid://cq8d3yjpisete" path="res://assets/materials/rocky_trail_rough_4k.jpg" id="25_tdekx"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/audio/surface_audio_type.gd" id="26_wp37p"]
+[ext_resource type="Material" uid="uid://c3mh5p2w5s8g7" path="res://assets/water2/Water.tres" id="31_6gak3"]
 [ext_resource type="AudioStream" uid="uid://b0gdb3bagdqxj" path="res://assets/sounds/coin.mp3" id="32_aa4ek"]
 [ext_resource type="Script" path="res://levels/level-2/WaterMesh.gd" id="33_gdrjp"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="33_qbuua"]
@@ -82,66 +82,13 @@ size = Vector2(500, 500)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3jai6"]
 size = Vector3(500, 2, 500)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_44of2"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_leyfy"]
-seamless = true
-as_normal_map = true
-bump_strength = 1.5
-noise = SubResource("FastNoiseLite_44of2")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ylcs6"]
-noise_type = 3
-fractal_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ch51q"]
-seamless = true
-as_normal_map = true
-bump_strength = 1.5
-noise = SubResource("FastNoiseLite_ylcs6")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ws53n"]
-noise_type = 3
-frequency = 0.001
-fractal_type = 2
-fractal_octaves = 3
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fqu0f"]
-seamless = true
-noise = SubResource("FastNoiseLite_ws53n")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lun2c"]
-render_priority = 0
-shader = ExtResource("11_xrcit")
-shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
-shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
-shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
-shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.02
-shader_parameter/wave_time = 0.0
-shader_parameter/wave_direction = Vector2(2, 0)
-shader_parameter/wave_2_direction = Vector2(0, 1)
-shader_parameter/time_scale = 0.025
-shader_parameter/wave_speed = 0.2
-shader_parameter/noise_scale = 10.0
-shader_parameter/height_scale = 0.15
-shader_parameter/beers_law = 0.089
-shader_parameter/depth_offset = -0.75
-shader_parameter/edge_scale = 0.362
-shader_parameter/near = 0.5
-shader_parameter/far = 100.0
-shader_parameter/edge_color = Color(0.992157, 0.992157, 0.992157, 1)
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_leyfy")
-shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_ch51q")
-shader_parameter/wave = SubResource("NoiseTexture2D_fqu0f")
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_havxl"]
 lightmap_size_hint = Vector2i(2502, 2502)
-material = SubResource("ShaderMaterial_lun2c")
+material = ExtResource("31_6gak3")
 size = Vector2(500, 500)
 subdivide_width = 500
 subdivide_depth = 500
+center_offset = Vector3(0, -1, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1fobc"]
 size = Vector3(500, 1, 500)
@@ -374,7 +321,6 @@ layers = 524289
 mesh = SubResource("PlaneMesh_havxl")
 skeleton = NodePath("")
 script = ExtResource("33_gdrjp")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Water" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)

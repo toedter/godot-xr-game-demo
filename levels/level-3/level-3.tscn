@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://onlvutnneeuj"]
+[gd_scene load_steps=30 format=3 uid="uid://onlvutnneeuj"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_771nf"]
 [ext_resource type="Script" path="res://levels/level-3/level-3.gd" id="2_kl1hk"]
@@ -18,9 +18,9 @@
 [ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_wgfa7"]
 [ext_resource type="Texture2D" uid="uid://dc8l8oe1uds5b" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="17_rc5ob"]
 [ext_resource type="Terrain3DStorage" uid="uid://bld0r1f3cfohs" path="res://levels/level-3/terrain_storage.res" id="19_4bcbn"]
+[ext_resource type="Material" uid="uid://c3mh5p2w5s8g7" path="res://assets/water2/Water.tres" id="19_kwhul"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="24_mbnyg"]
 [ext_resource type="Script" path="res://levels/level-2/Water.gd" id="24_wpk6t"]
-[ext_resource type="Shader" path="res://assets/water/water.gdshader" id="25_e2eca"]
 [ext_resource type="Texture2D" uid="uid://ce628mpvcp11s" path="res://assets/teleport/back-level.png" id="25_qes1d"]
 [ext_resource type="Script" path="res://levels/level-2/WaterMesh.gd" id="26_kvst3"]
 
@@ -32,68 +32,16 @@ walk_sounds = Array[AudioStream]([ExtResource("14_cc1kb")])
 walk_pitch_minimum = 0.8
 walk_pitch_maximum = 1.2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_44of2"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pbwfe"]
-seamless = true
-as_normal_map = true
-bump_strength = 1.5
-noise = SubResource("FastNoiseLite_44of2")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ylcs6"]
-noise_type = 3
-fractal_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fp0oc"]
-seamless = true
-as_normal_map = true
-bump_strength = 1.5
-noise = SubResource("FastNoiseLite_ylcs6")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ws53n"]
-noise_type = 3
-frequency = 0.001
-fractal_type = 2
-fractal_octaves = 3
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4u0as"]
-seamless = true
-noise = SubResource("FastNoiseLite_ws53n")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lun2c"]
-render_priority = 0
-shader = ExtResource("25_e2eca")
-shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
-shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
-shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
-shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.02
-shader_parameter/wave_time = 0.0
-shader_parameter/wave_direction = Vector2(2, 0)
-shader_parameter/wave_2_direction = Vector2(0, 1)
-shader_parameter/time_scale = 0.025
-shader_parameter/wave_speed = 0.2
-shader_parameter/noise_scale = 10.0
-shader_parameter/height_scale = 0.15
-shader_parameter/beers_law = 0.089
-shader_parameter/depth_offset = -0.75
-shader_parameter/edge_scale = 0.0
-shader_parameter/near = 0.5
-shader_parameter/far = 100.0
-shader_parameter/edge_color = Color(1, 0.895131, 0.760999, 1)
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_pbwfe")
-shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_fp0oc")
-shader_parameter/wave = SubResource("NoiseTexture2D_4u0as")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_pv2pf"]
-material = SubResource("ShaderMaterial_lun2c")
-size = Vector2(5000, 5000)
-subdivide_width = 500
-subdivide_depth = 500
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_hh3if"]
 size = Vector3(500, 1, 500)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6qaqk"]
+lightmap_size_hint = Vector2i(2502, 2502)
+material = ExtResource("19_kwhul")
+size = Vector2(2500, 2500)
+subdivide_width = 500
+subdivide_depth = 500
+center_offset = Vector3(0, -1, 0)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_w03ts"]
 panorama = ExtResource("17_rc5ob")
@@ -167,17 +115,16 @@ collision_layer = 524289
 collision_mask = 524289
 script = ExtResource("24_wpk6t")
 
-[node name="WaterMesh" type="MeshInstance3D" parent="map/Water" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-layers = 524289
-mesh = SubResource("PlaneMesh_pv2pf")
-skeleton = NodePath("")
-script = ExtResource("26_kvst3")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="map/Water" index="1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/Water" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
 shape = SubResource("BoxShape3D_hh3if")
+
+[node name="WaterMesh" type="MeshInstance3D" parent="map/Water" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
+layers = 524289
+mesh = SubResource("PlaneMesh_6qaqk")
+skeleton = NodePath("")
+script = ExtResource("26_kvst3")
 
 [node name="Teleport" parent="map" index="2" instance=ExtResource("24_mbnyg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 198.069, 8.59487, 82.6376)

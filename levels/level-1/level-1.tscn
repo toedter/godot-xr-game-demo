@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cynfgmiviq53j"]
+[gd_scene load_steps=37 format=3 uid="uid://cynfgmiviq53j"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
@@ -20,8 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://dcjyord7aweit" path="res://assets/kayKit-dungeo-scenes/wall_gate_door.tscn" id="15_c4aw1"]
 [ext_resource type="PackedScene" uid="uid://b10yt0hknitre" path="res://assets/kayKit-dungeo-scenes/wall_gate_corner.tscn" id="16_flmvj"]
 [ext_resource type="Script" path="res://levels/level-2/Water.gd" id="17_e4i0g"]
-[ext_resource type="Shader" path="res://assets/water/water.gdshader" id="18_k3tog"]
 [ext_resource type="Script" path="res://levels/level-2/WaterMesh.gd" id="19_iaagb"]
+[ext_resource type="Material" uid="uid://c3mh5p2w5s8g7" path="res://assets/water2/Water.tres" id="21_rhnvc"]
 [ext_resource type="PackedScene" uid="uid://ckjhh8lgthecr" path="res://assets/kayKit-dungeo-scenes/tile_brick_b_large_cracked.tscn" id="24_6jheo"]
 [ext_resource type="PackedScene" uid="uid://ba5i643tmtsj4" path="res://assets/kayKit-dungeo-scenes/torch_wall.tscn" id="25_0amys"]
 [ext_resource type="PackedScene" uid="uid://bt65le65ucux0" path="res://assets/kayKit-dungeo-scenes/pillar.tscn" id="25_s4j5s"]
@@ -62,68 +62,16 @@ walk_sounds = Array[AudioStream]([ExtResource("14_ikp2p")])
 walk_pitch_minimum = 0.8
 walk_pitch_maximum = 1.2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6wdv0"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_uu5q3"]
+size = Vector3(500, 1, 500)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ixsol"]
-seamless = true
-as_normal_map = true
-bump_strength = 1.5
-noise = SubResource("FastNoiseLite_6wdv0")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_m8q15"]
-noise_type = 3
-fractal_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_30c0h"]
-seamless = true
-as_normal_map = true
-bump_strength = 1.5
-noise = SubResource("FastNoiseLite_m8q15")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_1oumy"]
-noise_type = 3
-frequency = 0.001
-fractal_type = 2
-fractal_octaves = 3
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_slsuw"]
-seamless = true
-noise = SubResource("FastNoiseLite_1oumy")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvb3w"]
-render_priority = 0
-shader = ExtResource("18_k3tog")
-shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
-shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
-shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
-shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.02
-shader_parameter/wave_time = 0.0
-shader_parameter/wave_direction = Vector2(2, 0)
-shader_parameter/wave_2_direction = Vector2(0, 1)
-shader_parameter/time_scale = 0.025
-shader_parameter/wave_speed = 0.2
-shader_parameter/noise_scale = 10.0
-shader_parameter/height_scale = 0.15
-shader_parameter/beers_law = 0.089
-shader_parameter/depth_offset = -0.75
-shader_parameter/edge_scale = 0.362
-shader_parameter/near = 0.5
-shader_parameter/far = 100.0
-shader_parameter/edge_color = Color(0.992157, 0.992157, 0.992157, 1)
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_ixsol")
-shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_30c0h")
-shader_parameter/wave = SubResource("NoiseTexture2D_slsuw")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_tqsmm"]
-material = SubResource("ShaderMaterial_pvb3w")
+[sub_resource type="PlaneMesh" id="PlaneMesh_7u0je"]
+lightmap_size_hint = Vector2i(2502, 2502)
+material = ExtResource("21_rhnvc")
 size = Vector2(500, 500)
 subdivide_width = 500
 subdivide_depth = 500
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_uu5q3"]
-size = Vector3(500, 1, 500)
+center_offset = Vector3(0, -1, 0)
 
 [node name="MainMenuLevel" instance=ExtResource("1")]
 script = ExtResource("2_taoax")
@@ -255,17 +203,16 @@ collision_layer = 524289
 collision_mask = 524289
 script = ExtResource("17_e4i0g")
 
-[node name="WaterMesh" type="MeshInstance3D" parent="map/Water" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-layers = 524289
-mesh = SubResource("PlaneMesh_tqsmm")
-skeleton = NodePath("")
-script = ExtResource("19_iaagb")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="map/Water" index="1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/Water" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
 shape = SubResource("BoxShape3D_uu5q3")
+
+[node name="WaterMesh" type="MeshInstance3D" parent="map/Water" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+layers = 524289
+mesh = SubResource("PlaneMesh_7u0je")
+skeleton = NodePath("")
+script = ExtResource("19_iaagb")
 
 [node name="tileBrickB_largeCrackedBgltf" parent="map" index="26" instance=ExtResource("24_6jheo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)

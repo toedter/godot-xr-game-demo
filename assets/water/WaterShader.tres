@@ -55,7 +55,6 @@ op_type = 3
 noise_type = 2
 fractal_type = 0
 cellular_distance_function = 1
-cellular_jitter = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rwryd"]
 seamless = true
@@ -78,7 +77,6 @@ noise_type = 2
 seed = 1
 fractal_type = 0
 cellular_distance_function = 1
-cellular_jitter = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_syemq"]
 seamless = true
@@ -97,7 +95,6 @@ default_input_values = [1, Vector2(-0.1, -0.1), 2, Vector2(0, 0)]
 noise_type = 2
 fractal_type = 0
 cellular_distance_function = 1
-cellular_jitter = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ct8rc"]
 seamless = true
@@ -128,6 +125,8 @@ operator = 2
 
 [resource]
 code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
 uniform sampler2D tex_vtx_2;
 uniform vec4 ColorParameter : source_color = vec4(0.000000, 0.266667, 0.533333, 1.000000);
 uniform sampler2D tex_frg_3;
@@ -289,7 +288,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-1100.59, -508.75)
 nodes/vertex/2/node = SubResource("VisualShaderNodeTexture_6lio0")
 nodes/vertex/2/position = Vector2(-500, -340)
 nodes/vertex/3/node = SubResource("VisualShaderNodeInput_lnmuq")
