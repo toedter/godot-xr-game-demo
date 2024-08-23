@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://onlvutnneeuj"]
+[gd_scene load_steps=29 format=3 uid="uid://onlvutnneeuj"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_771nf"]
 [ext_resource type="Script" path="res://levels/level-3/level-3.gd" id="2_kl1hk"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://addons/godot-xr-tools/audio/surface_audio_type.gd" id="13_dvvyn"]
 [ext_resource type="AudioStream" uid="uid://dfhaxl0fgric8" path="res://assets/sounds/steptap.wav" id="14_cc1kb"]
 [ext_resource type="PackedScene" uid="uid://cvokcudrffkgc" path="res://addons/godot-xr-tools/functions/movement_glide.tscn" id="15_7w6fd"]
-[ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="15_wgfa7"]
 [ext_resource type="Texture2D" uid="uid://dc8l8oe1uds5b" path="res://assets/sky/kloppenheim_06_puresky_4k.exr" id="17_rc5ob"]
 [ext_resource type="Terrain3DStorage" uid="uid://bld0r1f3cfohs" path="res://levels/level-3/terrain_storage.res" id="19_4bcbn"]
 [ext_resource type="Material" uid="uid://c3mh5p2w5s8g7" path="res://assets/water2/Water.tres" id="19_kwhul"]
@@ -102,10 +101,7 @@ transform = Transform3D(0.688544, -0.725194, 0, 0.725194, 0.688544, 0, 0, 0, 1, 
 glide_forward_speed = 10.0
 turn_with_roll = true
 
-[node name="XRSimulator" parent="." index="1" instance=ExtResource("15_wgfa7")]
-xr_origin = NodePath("../XROrigin3D")
-
-[node name="map" type="Node3D" parent="." index="2"]
+[node name="map" type="Node3D" parent="." index="1"]
 
 [node name="Terrain3D" type="Terrain3D" parent="map" index="0"]
 storage = ExtResource("19_4bcbn")
@@ -135,7 +131,7 @@ active = true
 active_beam_color = Color(0, 0, 0.952941, 1)
 inactive_beam_color = Color(0.968627, 0, 0, 1)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
 environment = SubResource("Environment_qrenk")
 
 [connection signal="body_entered" from="map/Water" to="map/Water" method="_on_body_entered"]

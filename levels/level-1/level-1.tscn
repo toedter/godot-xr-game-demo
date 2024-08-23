@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cynfgmiviq53j"]
+[gd_scene load_steps=36 format=3 uid="uid://cynfgmiviq53j"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
 [ext_resource type="Script" path="res://levels/level-1/level-1.gd" id="2_taoax"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="8_u8jpa"]
 [ext_resource type="PackedScene" uid="uid://bysy6577cvpe0" path="res://levels/level-1/right_hand_poke.tscn" id="9_g7f61"]
 [ext_resource type="PackedScene" uid="uid://0xlsitpu17r1" path="res://addons/godot-xr-tools/functions/movement_footstep.tscn" id="11_2cb4d"]
-[ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="12_ddxow"]
 [ext_resource type="AudioStream" uid="uid://bmb662sxatgk8" path="res://assets/sounds/jump.wav" id="12_l28rn"]
 [ext_resource type="PackedScene" uid="uid://cd1ifv6lrpdth" path="res://assets/kayKit-dungeo-scenes/tile_cracked_large.tscn" id="13_0m31k"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/audio/surface_audio_type.gd" id="13_j1p44"]
@@ -119,10 +118,7 @@ default_surface_audio_type = SubResource("Resource_3i1dg")
 
 [node name="PlayerCopy3" type="AudioStreamPlayer3D" parent="XROrigin3D/MovementFootstep/FootSpatial" index="2"]
 
-[node name="XRSimulator" parent="." index="2" instance=ExtResource("12_ddxow")]
-xr_origin = NodePath("../XROrigin3D")
-
-[node name="map" type="Node3D" parent="." index="3"]
+[node name="map" type="Node3D" parent="." index="2"]
 
 [node name="tile_cracked_large" parent="map" index="0" instance=ExtResource("13_0m31k")]
 
