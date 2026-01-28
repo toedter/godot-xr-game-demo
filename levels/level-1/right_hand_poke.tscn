@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bysy6577cvpe0"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/hand.gd" id="1_hqfsr"]
+[ext_resource type="Script" uid="uid://dygjvicxh2s3e" path="res://addons/godot-xr-tools/hands/hand.gd" id="1_hqfsr"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://m85b1gogdums" path="res://addons/godot-xr-tools/hands/animations/right/hand_blend_tree.tres" id="2_f3mrg"]
 [ext_resource type="Resource" uid="uid://dmpjtk0l8vh6v" path="res://addons/godot-xr-tools/hands/poses/pose_default_right.tres" id="3_eoijo"]
 [ext_resource type="PackedScene" uid="uid://cjrac51wst3tu" path="res://addons/godot-xr-tools/hands/model/Hand_low_R.gltf" id="4_d63ou"]
@@ -36,7 +36,7 @@ nodes/OpenHand/node = SubResource("AnimationNodeAnimation_i7dpb")
 nodes/OpenHand/position = Vector2(-600, 100)
 nodes/Trigger/node = SubResource("AnimationNodeBlend2_def3k")
 nodes/Trigger/position = Vector2(-360, 40)
-node_connections = [&"output", 0, &"Grip", &"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigger", 0, &"OpenHand", &"Trigger", 1, &"ClosedHand1"]
+node_connections = [&"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigger", 0, &"OpenHand", &"Trigger", 1, &"ClosedHand1", &"output", 0, &"Grip"]
 
 [node name="RightHand" type="Node3D"]
 script = ExtResource("1_hqfsr")

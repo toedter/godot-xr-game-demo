@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dk87rfw3mqnps"]
 
-[ext_resource type="Script" path="res://levels/level-2/MovingPlatform.gd" id="1_y2irn"]
+[ext_resource type="Script" uid="uid://eua1r42ektt1" path="res://levels/level-2/MovingPlatform.gd" id="1_y2irn"]
 [ext_resource type="PackedScene" uid="uid://dvvem4g7ivur2" path="res://assets/kayKit-scenes/large_tile_forest.tscn" id="2_oa7fp"]
 
 [node name="MovingPlatform" type="Node3D"]

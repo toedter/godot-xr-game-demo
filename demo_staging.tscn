@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://75fnm8t0couq"]
+[gd_scene format=3 uid="uid://75fnm8t0couq"]
 
 [ext_resource type="PackedScene" uid="uid://bnqnnnet4dw12" path="res://addons/godot-xr-tools/staging/staging.tscn" id="1"]
-[ext_resource type="Script" path="res://demo_staging.gd" id="2"]
+[ext_resource type="Script" uid="uid://cm7gt3ie5ojwe" path="res://demo_staging.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://ds7ohrdvcai57" path="res://assets/splash/godot-splash.png" id="3_gjnqx"]
-[ext_resource type="PackedScene" path="res://addons/xr-simulator/XRSimulator.tscn" id="4_884rb"]
+[ext_resource type="PackedScene" uid="uid://qjxhafdypyj" path="res://addons/xr-simulator/XRSimulator.tscn" id="4_884rb"]
 
-[node name="DemoStaging" instance=ExtResource("1")]
+[node name="DemoStaging" unique_id=463529842 instance=ExtResource("1")]
 script = ExtResource("2")
 main_scene = "res://levels/level-1/level-1.tscn"
 
@@ -16,7 +16,7 @@ current = true
 splash_screen = ExtResource("3_gjnqx")
 enable_press_to_continue = true
 
-[node name="XRSimulator" parent="." index="5" instance=ExtResource("4_884rb")]
+[node name="XRSimulator" parent="." index="5" unique_id=450363100 instance=ExtResource("4_884rb")]
 xr_origin = NodePath("../XROrigin3D")
 
 [connection signal="scene_exiting" from="." to="." method="_on_Staging_scene_exiting"]

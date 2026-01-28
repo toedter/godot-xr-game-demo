@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=13 format=3 uid="uid://c26e12f2whdrj"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c26e12f2whdrj"]
 
 [sub_resource type="VisualShaderNodeComment" id="VisualShaderNodeComment_t4y4m"]
 size = Vector2(690.6, 253)
@@ -45,53 +45,6 @@ default_input_values = [0, 0.0, 1, 5.0]
 operator = 4
 
 [sub_resource type="VisualShader" id="6"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform sampler2D Title : source_color, repeat_enable;
-
-
-
-void fragment() {
-// Input:4
-	float n_out4p0 = TIME;
-
-
-// FloatOp:9
-	float n_in9p1 = 5.00000;
-	float n_out9p0 = mod(n_out4p0, n_in9p1);
-
-
-// VectorOp:5
-	vec3 n_in5p1 = vec3(0.20000, 0.00000, 0.00000);
-	vec3 n_out5p0 = vec3(n_out9p0) * n_in5p1;
-
-
-// Input:3
-	vec2 n_out3p0 = UV;
-
-
-// VectorOp:7
-	vec3 n_in7p1 = vec3(2.00000, 1.00000, 0.00000);
-	vec3 n_out7p0 = vec3(n_out3p0, 0.0) * n_in7p1;
-
-
-// VectorOp:6
-	vec3 n_out6p0 = n_out5p0 + n_out7p0;
-
-
-	vec4 n_out8p0;
-// Texture2D:8
-	n_out8p0 = texture(Title, vec2(n_out6p0.xy));
-
-
-// Output:0
-	ALBEDO = vec3(n_out8p0.xyz);
-
-
-}
-"
-graph_offset = Vector2(-508.681, 463.806)
 flags/unshaded = true
 nodes/fragment/0/position = Vector2(798, 252)
 nodes/fragment/2/node = SubResource("5")

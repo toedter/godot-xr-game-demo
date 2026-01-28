@@ -48,13 +48,17 @@ var _skeletal_bone : Node3D
 
 
 # Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
-	return name == "XRToolsHandPhysicsBone"
+func is_xr_class(xr_name:  String) -> bool:
+	return xr_name == "XRToolsHandPhysicsBone"
 
 
 # Called when the node enters the scene tree. This constructs the physics-bone
 # nodes and performs initial positioning.
 func _ready():
+	# Skip if in the editor
+	if Engine.is_editor_hint():
+		return
+
 	# Connect the 'hand_scale_changed' signal
 	var physics_hand := XRToolsHand.find_instance(self) as XRToolsPhysicsHand
 	if physics_hand:
@@ -102,6 +106,10 @@ func _ready():
 # Called during the physics process and moves the physics-bone to follow the
 # skeletal-bone.
 func _physics_process(delta: float) -> void:
+	# Skip if in the editor
+	if Engine.is_editor_hint():
+		return
+
 	_move_bone(delta)
 
 

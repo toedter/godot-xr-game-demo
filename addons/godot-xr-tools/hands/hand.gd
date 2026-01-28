@@ -1,7 +1,7 @@
 @tool
 @icon("res://addons/godot-xr-tools/editor/icons/hand.svg")
 class_name XRToolsHand
-extends Node3D
+extends XRToolsHandPalmOffset
 
 
 ## XR Tools Hand Script
@@ -16,7 +16,6 @@ extends Node3D
 
 ## Signal emitted when the hand scale changes
 signal hand_scale_changed(scale)
-
 
 ## Blend tree to use
 @export var hand_blend_tree : AnimationNodeBlendTree: set = set_hand_blend_tree
@@ -33,14 +32,13 @@ signal hand_scale_changed(scale)
 ## Name of the Trigger action in the OpenXR Action Map.
 @export var trigger_action : String = "trigger"
 
-
 ## Last world scale (for scaling hands)
 var _last_world_scale : float = 1.0
 
-## Controller used for input/tracking
-var _controller : XRController3D
-
 ## Initial hand transform (from controller) - used for scaling hands
+var _initial_transform : Transform3D
+
+## Current hand transform (from controller) - after scale
 var _transform : Transform3D
 
 ## Hand mesh
@@ -64,6 +62,12 @@ var _force_grip := -1.0
 ## Force trigger value (< 0 for no force)
 var _force_trigger := -1.0
 
+# Sorted stack of TargetOverride
+var _target_overrides := []
+
+# Current target (controller or override)
+var _target : Node3D
+
 
 ## Pose-override class
 class PoseOverride:
@@ -83,18 +87,37 @@ class PoseOverride:
 		settings = s
 
 
+## Target-override class
+class TargetOverride:
+	## Target of the override
+	var target : Node3D
+
+	## Target priority
+	var priority : int
+
+	## Target-override constructor
+	func _init(t : Node3D, p : int):
+		target = t
+		priority = p
+
+
 # Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
-	return name == "XRToolsHand"
+func is_xr_class(xr_name:  String) -> bool:
+	return xr_name == "XRToolsHand"
 
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Save the initial hand transform
-	_transform = transform
+	_initial_transform = transform
+	_transform = _initial_transform
 
-	# Find our controller
-	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
+	# Disconnect from parent transform as we move to it in the physics step,
+	# and boost the physics priority after any grab-drivers but before other
+	# processing.
+	if not Engine.is_editor_hint():
+		top_level = true
+		process_physics_priority = -70
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
@@ -105,20 +128,40 @@ func _ready() -> void:
 	_update_hand_blend_tree()
 	_update_hand_material_override()
 	_update_pose()
+	_update_target()
 
 
-## This method is called on every frame. It checks for world-scale changes and
-## scales itself causing the hand mesh and skeleton to scale appropriately.
-## It then reads the grip and trigger action values to animate the hand.
-func _process(_delta: float) -> void:
-	# Do not run physics if in the editor
+# Called when we get added to our tree
+func _enter_tree():
+	# Assume our first child is our hand subscene, we position this
+	var child = get_child(0)
+	if child:
+		set_apply_to(child)
+
+	super._enter_tree()
+
+	# Offset our hand
+	var base_transform = Transform3D()
+	if _controller and _controller.tracker == "left_hand":
+		base_transform.origin = Vector3(-0.01, 0.0, 0.05)
+	else:
+		base_transform.origin = Vector3(0.01, 0.0, 0.05)
+
+	set_base_transform(base_transform)
+
+
+## This method checks for world-scale changes and scales itself causing the
+## hand mesh and skeleton to scale appropriately. It then reads the grip and
+## trigger action values to animate the hand.
+func _physics_process(_delta: float) -> void:
+	# Do not run the rest of physics if in the editor
 	if Engine.is_editor_hint():
 		return
 
 	# Scale the hand mesh with the world scale.
 	if XRServer.world_scale != _last_world_scale:
 		_last_world_scale = XRServer.world_scale
-		transform = _transform.scaled(Vector3.ONE * _last_world_scale)
+		_transform = _initial_transform.scaled(Vector3.ONE * _last_world_scale)
 		emit_signal("hand_scale_changed", _last_world_scale)
 
 	# Animate the hand mesh with the controller inputs
@@ -133,11 +176,22 @@ func _process(_delta: float) -> void:
 		$AnimationTree.set("parameters/Grip/blend_amount", grip)
 		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
 
+	# Move to target
+	var target_transform : Transform3D
+	if _target is XRToolsGrabPointHand:
+		target_transform = _target.get_palm_transform(true)
+		if hand_offset_mode != 4:
+			target_transform = target_transform * XRTools.get_palm_offset(hand_offset_mode, _controller).inverse()
+	else:
+		target_transform = _target.global_transform
+
+	global_transform = target_transform * _transform
+	force_update_transform()
 
 
 # This method verifies the hand has a valid configuration.
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
+	var warnings : PackedStringArray = super._get_configuration_warnings()
 
 	# Check hand for mesh instance
 	if not _find_child(self, "MeshInstance3D"):
@@ -161,12 +215,39 @@ func _get_configuration_warnings() -> PackedStringArray:
 ## Find an [XRToolsHand] node.
 ##
 ## This function searches from the specified node for an [XRToolsHand] assuming
-## the node is a sibling of the hand under an [ARVRController].
+## the node is a sibling of the hand under an [XROrigin3D].
 static func find_instance(node : Node) -> XRToolsHand:
 	return XRTools.find_xr_child(
 		XRHelpers.get_xr_controller(node),
 		"*",
 		"XRToolsHand") as XRToolsHand
+
+
+## This function searches from the specified node for the left controller
+## [XRToolsHand] assuming the node is a sibling of the [XROrigin3D].
+static func find_left(node : Node) -> XRToolsHand:
+	return XRTools.find_xr_child(
+		XRHelpers.get_left_controller(node),
+		"*",
+		"XRToolsHand") as XRToolsHand
+
+
+## This function searches from the specified node for the right controller
+## [XRToolsHand] assuming the node is a sibling of the [XROrigin3D].
+static func find_right(node : Node) -> XRToolsHand:
+	return XRTools.find_xr_child(
+		XRHelpers.get_right_controller(node),
+		"*",
+		"XRToolsHand") as XRToolsHand
+
+
+# Check property config
+func _validate_property(property):
+	if property.name == "top_level":
+		# Hide it!
+		property.usage = PROPERTY_USAGE_NONE
+	else:
+		super._validate_property(property)
 
 
 ## Set the blend tree
@@ -227,6 +308,32 @@ func force_grip_trigger(grip : float = -1.0, trigger : float = -1.0) -> void:
 	if trigger >= 0.0: $AnimationTree.set("parameters/Trigger/blend_amount", trigger)
 
 
+## This function adds a target override. The collision hand will attempt to
+## move to the highest priority target, or the [XRController3D] if no override
+## is specified.
+func add_target_override(target : Node3D, priority : int) -> void:
+	# Remove any existing target override from this source
+	var modified := _remove_target_override(target)
+
+	# Insert the target override
+	_insert_target_override(target, priority)
+	modified = true
+
+	# Update the target
+	if modified:
+		_update_target()
+
+
+## This function remove a target override.
+func remove_target_override(target : Node3D) -> void:
+	# Remove the target override
+	var modified := _remove_target_override(target)
+
+	# Update the pose
+	if modified:
+		_update_target()
+
+
 func _update_hand_blend_tree() -> void:
 	# As we're going to make modifications to our animation tree, we need to do
 	# a deep copy, simply setting resource local to scene does not seem to be enough
@@ -260,9 +367,9 @@ func _update_pose() -> void:
 		if open_name == "":
 			open_name = "open_hand"
 			if _animation_player.has_animation(open_name):
-				_animation_player.remove_animation(open_name)
+				_animation_player.get_animation_library("").remove_animation(open_name)
 
-			_animation_player.add_animation(open_name, open_pose)
+			_animation_player.get_animation_library("").add_animation(open_name, open_pose)
 
 		var open_hand_obj : AnimationNodeAnimation = _tree_root.get_node("OpenHand")
 		if open_hand_obj:
@@ -274,9 +381,9 @@ func _update_pose() -> void:
 		if closed_name == "":
 			closed_name = "closed_hand"
 			if _animation_player.has_animation(closed_name):
-				_animation_player.remove_animation(closed_name)
+				_animation_player.get_animation_library("").remove_animation(closed_name)
 
-			_animation_player.add_animation(closed_name, closed_pose)
+			_animation_player.get_animation_library("").add_animation(closed_name, closed_pose)
 
 		var closed_hand_obj : AnimationNodeAnimation = _tree_root.get_node("ClosedHand1")
 		if closed_hand_obj:
@@ -327,6 +434,59 @@ func _remove_pose_override(who : Node) -> bool:
 
 	# Return the modified indicator
 	return modified
+
+
+# This function inserts a target override into the overrides list by priority
+# order.
+func _insert_target_override(target : Node3D, priority : int) -> void:
+	# Construct the target override
+	var override := TargetOverride.new(target, priority)
+
+	# Iterate over all target overrides in the list
+	for pos in _target_overrides.size():
+		# Get the target override
+		var o : TargetOverride = _target_overrides[pos]
+
+		# Insert as early as possible to not invalidate sorting
+		if o.priority <= priority:
+			_target_overrides.insert(pos, override)
+			return
+
+	# Insert at the end
+	_target_overrides.push_back(override)
+
+
+# This function removes a target from the overrides list
+func _remove_target_override(target : Node) -> bool:
+	var pos := 0
+	var length := _target_overrides.size()
+	var modified := false
+
+	# Iterate over all pose overrides in the list
+	while pos < length:
+		# Get the target override
+		var o : TargetOverride = _target_overrides[pos]
+
+		# Check for a match
+		if o.target == target:
+			# Remove the override
+			_target_overrides.remove_at(pos)
+			modified = true
+			length -= 1
+		else:
+			# Advance down the list
+			pos += 1
+
+	# Return the modified indicator
+	return modified
+
+
+# This function updates the target for hand movement.
+func _update_target() -> void:
+	if _target_overrides.size():
+		_target = _target_overrides[0].target
+	else:
+		_target = get_parent()
 
 
 static func _find_child(node : Node, type : String) -> Node:

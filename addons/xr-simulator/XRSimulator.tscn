@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://qjxhafdypyj"]
 
-[ext_resource type="Script" path="res://addons/xr-simulator/XRSimulator.gd" id="1_uljju"]
+[ext_resource type="Script" uid="uid://dl7t3uuo5t8bj" path="res://addons/xr-simulator/XRSimulator.gd" id="1_uljju"]
 
 [node name="XRSimulator" type="Node"]
 script = ExtResource("1_uljju")

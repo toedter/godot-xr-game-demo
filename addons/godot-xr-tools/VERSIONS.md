@@ -1,3 +1,76 @@
+# 4.5.0
+- Minimum Godot version changed to 4.4
+- Added UIDs for all classes
+- Improve material handling in Viewport2Din3D
+- Improve performance by avoiding force_update_transform on grab driver
+- Don't trigger haptics when primary interface is null
+- Fix 'create_snap' desync
+- Fix grab with scaled pickables by swapping inverse for affine_inverse
+- Fix "UP" direction in player movement
+- Gracefully handle freed objects with collision exceptions
+- Added support for using grip or palm pose instead of aim pose
+- Various bits of code cleanup
+- Improved player body collisions so players can move over tables
+- Fix: Stash sound should not play on scene load (minor breaking)
+- Fixed node process mode issue for XRToolsInteractableAreaButton
+- Renamed controler to controller in various classes (minor breaking)
+- Demo now has an optional spectator view for PCVR
+- Fixed issue with setting the ranged collision mask
+
+# 4.4.0
+- Minimum Godot version changed to 4.2
+- Add pickable action_released signal
+- Fix custom hand poses calling legacy remove_animation
+- Cleaned up StartXR
+- Allow grab-points and poses to work with different types of hand trackers
+- Add end_xr support to StartXR
+- Fixed vignette shader
+- Add visibility_changed notifications to Viewport2Din3D hosted scenes
+- Invisible Viewport2Din3D now disable physics and viewport updates
+- Add SnapPath
+- Improvements to collision hands so collision shapes of picked up objects
+  are added and we no longer have hands collide with dropped objects
+
+# 4.3.3
+- Fix Viewport2Din3D property forwarding
+
+# 4.3.2
+- Move fade logic into effect
+- Added collision fade support
+- Added fix for slowly sliding on slopes
+- Added fix for ground-control preventing jumping over objects
+- Added property forwarding for Viewport2Din3D
+- Added fix for open/close poses
+- Added rumble manager for haptic feedback
+- Fix unreliable wall-walking collision
+
+# 4.3.1
+- Fix saving project when using plugin-tools to set physics layers or enable OpenXR
+- Fix updating the editor-preview hand-pose
+- Fix jumping on slopes
+- Fix material warnings by converting binary .material files to .tres files
+- Fix staging to use threaded loading while starting the fade
+- Fix broken world-grab script
+
+# 4.3.0
+- Upgraded project to Godot 4.1 as the new minimum version.
+- Added reporting of stage load errors.
+- Blend player height changes and prevent the player from standing up under a low ceiling.
+- **minor-breakage** Added support for swapping held items between hands.
+- Added jog-in-place movement provider.
+- Added support for grappling on GridMap instances
+- **breakage** Added support for two-handed grabbing.
+- Added support for snapping hands to grab-points.
+- Added support for world-grab movement.
+- Fixed editor errors when using hand physics bones.
+- Added support for climbable grab-points.
+- Added control of keyboard or gamepad inputs to Viewport2Din3D instances.
+
+# 4.2.1
+- Fixed snap-zones showing highlight when disabled.
+- Fixed pickup leaving target highlighted after picking up.
+- Fixed collision hands getting stuck too far from the real hands.
+
 # 4.2.0
 - Environments can now be set normally in scenes loaded through the staging system.
 - Fixed issue with not being able to push rigid bodies when colliding with them.
